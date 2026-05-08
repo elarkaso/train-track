@@ -1,3 +1,28 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
 
-export { API_BASE_URL };
+async function apiFetch(path, options = {}) {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {})
+    },
+    ...options
+  });
+
+  if (!response.ok) {
+    let errorMessage = "API request failed";
+
+    try {
+      const errorData = await response.json();
+      errorMessage = errorData?.error?.message || errorMessage;
+    } catch {
+      // ignore JSON parse errors
+    }
+
+    throw new Error(errorMessage);
+  }
+
+  return response.json();
+}
+
+export { API_BASE_URL, apiFetch };
