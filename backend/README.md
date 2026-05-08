@@ -2,8 +2,6 @@
 
 Backend part of the TrainTrack application built as a standalone Express.js REST API.
 
-TrainTrack is a web application for recording workouts and analyzing training balance across muscle groups. The backend provides API endpoints for workout management, exercise catalog access, exercise assignment to workouts, and training balance analysis.
-
 ## Features
 
 - REST API built with Express.js

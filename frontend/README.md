@@ -2,8 +2,6 @@
 
 Frontend part of the TrainTrack application built as a standalone React SPA using Vite.
 
-TrainTrack is a web application for recording workouts and analyzing training balance across muscle groups. The frontend provides pages for workout overview, workout creation, workout detail, exercise assignment, and training balance analysis.
-
 ## Features
 
 - Workout overview page
