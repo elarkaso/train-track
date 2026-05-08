@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="train-track_logo.png" alt="TrainTrack Logo" width="440"/>
+  <img src="train-track_banner.png" alt="TrainTrack Logo" width="400"/>
 
 
   **Modern fitness tracking application for recording workouts, monitoring progress, and staying consistent.**
