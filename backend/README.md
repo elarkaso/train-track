@@ -14,6 +14,7 @@ Backend part of the TrainTrack application built as a standalone Express.js REST
 
 - Node.js
 - Express.js
+- Prisma Postgres
 - CORS
 - dotenv
 - nodemon
@@ -45,6 +46,7 @@ npm run dev
 ```markdown
 PORT=3000
 FRONTEND_URL=http://localhost:5173
+DATABASE_URL="postgresql://postgres:{PASSWORD}@localhost:5432/traintrack?schema=public"
 ```
 ### Start in Production Mode
 
@@ -58,7 +60,7 @@ npm start
 http://localhost:3000/api
 ```
 
-- Example response:
+- Example response (GET http://localhost:3000/api/health):
 ```bash
 {
   "status": "ok",
