@@ -19,7 +19,7 @@ enum PrimaryMuscleGroup {
 model Workout {
   id               Int               @id @default(autoincrement())
   name             String
-  date             DateTime
+  date             DateTime          @db.Date @unique
   workoutExercises WorkoutExercise[]
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
