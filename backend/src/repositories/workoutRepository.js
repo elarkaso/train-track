@@ -12,6 +12,42 @@ async function getWorkoutByDate(date) {
   });
 }
 
+async function getWorkoutByDateExcludingId(date, excludeId) {
+  return prisma.workout.findFirst({
+    where: {
+      date,
+      id: { not: excludeId }
+    }
+  });
+}
+
+async function getWorkoutById(id) {
+  return prisma.workout.findUnique({
+    where: { id }
+  });
+}
+
+async function hasWorkoutExercises(workoutId) {
+  const count = await prisma.workoutExercise.count({
+    where: { workoutId }
+  });
+
+  return count > 0;
+}
+
+async function updateWorkout(id, workoutData) {
+  return prisma.workout.update({
+    where: { id },
+    data: workoutData
+  });
+}
+
+async function deleteWorkout(id) {
+  return prisma.workout.delete({
+    where: { id }
+  });
+}
+
 async function listWorkouts(filter = {}) {
   const where = {};
 
@@ -36,5 +72,10 @@ async function listWorkouts(filter = {}) {
 module.exports = {
   createWorkout,
   getWorkoutByDate,
+  getWorkoutByDateExcludingId,
+  getWorkoutById,
+  hasWorkoutExercises,
+  updateWorkout,
+  deleteWorkout,
   listWorkouts
 };

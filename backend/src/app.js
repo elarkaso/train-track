@@ -34,31 +34,48 @@ app.use((req, res) => {
 app.use((error, req, res, next) => {
   console.error(error);
 
-  // handle "P2002" error from Prisma
   if (error.code === "P2002") {
-    return res.status(409).json({
-      error: {
-        code: "workoutAlreadyExistsForDate",
-        message: "Workout for the selected date already exists."
-      }
-    });
-  }
+    const target = error.meta?.target || [];
 
-  // handle 400 errors from our services
-   if (error.statusCode === 400) {
+    if (target.includes("date")) {
+      return res.status(400).json({
+        error: {
+          code: "workoutAlreadyExistsForDate",
+          message: "Workout for the selected date already exists."
+        }
+      });
+    }
+
+    if (target.includes("name")) {
+      return res.status(400).json({
+        error: {
+          code: "exerciseNameAlreadyExists",
+          message: "Exercise with the selected name already exists."
+        }
+      });
+    }
+
     return res.status(400).json({
       error: {
-        code: error.code || "BadRequest",
-        message: error.message || "Bad request"
+        code: "uniqueConstraintViolation",
+        message: "Unique constraint violation."
       }
     });
   }
 
-  // default to 500 for unhandled errors
+  if (error.code === "P2003") {
+    return res.status(400).json({
+      error: {
+        code: "entityInUse",
+        message: "The entity cannot be deleted because it is referenced by existing records."
+      }
+    });
+  }
+
   res.status(error.statusCode || 500).json({
     error: {
-      code: error.code || "InternalServerError",
-      message: error.message || "An unexpected error occurred"
+      code: error.code || "internalServerError",
+      message: error.message || "Internal server error"
     }
   });
 });
