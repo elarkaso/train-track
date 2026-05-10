@@ -6,6 +6,28 @@ async function createWorkoutExercise(workoutExerciseData) {
   });
 }
 
+async function getWorkoutExerciseById(id) {
+  return prisma.workoutExercise.findUnique({
+    where: { id }
+  });
+}
+
+async function updateWorkoutExercise(id, workoutExerciseData) {
+  return prisma.workoutExercise.update({
+    where: { id },
+    data: workoutExerciseData
+  });
+}
+
+async function deleteWorkoutExercise(id) {
+  return prisma.workoutExercise.delete({
+    where: { id }
+  });
+}
+
 module.exports = {
-  createWorkoutExercise
+  createWorkoutExercise,
+  getWorkoutExerciseById,
+  updateWorkoutExercise,
+  deleteWorkoutExercise
 };
