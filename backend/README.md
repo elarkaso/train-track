@@ -71,6 +71,10 @@ http://localhost:3000/api
 ## Project Structure
 
 ```bash
+prisma/
+  migrations/
+  schema.prisma
+  seed.js
 src/
   app.js               # Express app configuration
   server.js            # Application entry point
