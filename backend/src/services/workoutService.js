@@ -54,7 +54,7 @@ async function getWorkout(dtoIn) {
   const workout = await workoutRepository.getWorkoutById(id);
 
   if (!workout) {
-    const error = new Error("Workout not found.");
+    const error = new Error("Workout with the given identifier was not found.");
     error.statusCode = 404;
     error.code = "workoutNotFound";
     throw error;

@@ -23,7 +23,17 @@ async function getWorkoutByDateExcludingId(date, excludeId) {
 
 async function getWorkoutById(id) {
   return prisma.workout.findUnique({
-    where: { id }
+    where: { id },
+    include: {
+      workoutExercises: {
+        include: {
+          exercise: true
+        },
+        orderBy: { id: "asc" 
+          
+        }
+      }
+    }
   });
 }
 
