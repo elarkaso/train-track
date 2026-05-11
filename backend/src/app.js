@@ -5,6 +5,8 @@ const cors = require("cors");
 const healthRoutes = require("./routes/healthRoutes");
 const exerciseRoutes = require("./routes/exerciseRoutes");
 const workoutRoutes = require("./routes/workoutRoutes");
+const workoutExerciseRoutes = require("./routes/workoutExerciseRoutes");
+const analysisRoutes = require("./routes/analysisRoutes");
 
 const app = express();
 
@@ -19,6 +21,8 @@ app.use(express.json());
 app.use("/api/health", healthRoutes);
 app.use("/api/exercises", exerciseRoutes);
 app.use("/api/workouts", workoutRoutes);
+app.use("/api", workoutExerciseRoutes);
+app.use("/api/analysis", analysisRoutes);
 
 // 404 handler
 app.use((req, res) => {
