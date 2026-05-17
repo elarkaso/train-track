@@ -1,6 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 
-function AppLayout() {
+function PageLayout() {
   return (
     <div>
       <header style={{ padding: "1rem", borderBottom: "1px solid #ddd" }}>
@@ -8,8 +8,8 @@ function AppLayout() {
         <h3>Track your workouts, analyze your progress, and achieve your fitness goals!</h3>
         <nav style={{ display: "flex", gap: "1rem" }}>
           <Link to="/workouts">Workouts</Link>
-          <Link to="/analysis">Analysis</Link>
           <Link to="/workouts/new">Create Workout</Link>
+          <Link to="/analysis">Analysis</Link>
         </nav>
       </header>
 
@@ -20,4 +20,4 @@ function AppLayout() {
   );
 }
 
-export default AppLayout;
+export default PageLayout;
