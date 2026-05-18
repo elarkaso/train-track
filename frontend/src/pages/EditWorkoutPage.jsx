@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getWorkoutById, updateWorkout } from "../api/workoutApi";
 
-export default function EditWorkoutPage() {
+function EditWorkoutPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -104,3 +104,5 @@ export default function EditWorkoutPage() {
     </div>
   );
 }
+
+export default EditWorkoutPage;
