@@ -2,6 +2,33 @@ const workoutRepository = require("../repositories/workoutRepository");
 const exerciseRepository = require("../repositories/exerciseRepository");
 const workoutExerciseRepository = require("../repositories/workoutExerciseRepository");
 
+async function getWorkoutExercise(dtoIn) {
+  const uuAppErrorMap = {};
+
+  const id = Number(dtoIn.id);
+
+  if (!id || Number.isNaN(id)) {
+    const error = new Error("WorkoutExercise id is not valid.");
+    error.statusCode = 400;
+    error.code = "invalidDtoIn";
+    throw error;
+  }
+
+  const workoutExercise = await workoutExerciseRepository.getWorkoutExerciseById(id);
+
+  if (!workoutExercise) {
+    const error = new Error("WorkoutExercise with the given identifier was not found.");
+    error.statusCode = 404;
+    error.code = "workoutExerciseNotFound";
+    throw error;
+  }
+
+  return {
+    workoutExercise,
+    uuAppErrorMap
+  };
+}
+
 async function assignExerciseToWorkout(dtoIn) {
   const uuAppErrorMap = {};
 
@@ -175,6 +202,7 @@ async function deleteWorkoutExercise(dtoIn) {
 }
 
 module.exports = {
+  getWorkoutExercise,
   assignExerciseToWorkout,
   updateWorkoutExercise,
   deleteWorkoutExercise

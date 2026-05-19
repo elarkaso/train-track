@@ -8,7 +8,11 @@ async function createWorkoutExercise(workoutExerciseData) {
 
 async function getWorkoutExerciseById(id) {
   return prisma.workoutExercise.findUnique({
-    where: { id }
+    where: { id },
+    include: {
+      exercise: true,
+      workout: true
+    }
   });
 }
 

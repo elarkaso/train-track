@@ -1,5 +1,19 @@
 const workoutExerciseService = require("../services/workoutExerciseService");
 
+async function getWorkoutExercise(req, res, next) {
+  try {
+    const dtoIn = {
+      id: req.params.id
+    };
+
+    const dtoOut = await workoutExerciseService.getWorkoutExercise(dtoIn);
+    res.status(200).json(dtoOut);
+
+  } catch (error) {
+    next(error);
+  }
+}
+
 async function assignExerciseToWorkout(req, res, next) {
   try {
     const dtoIn = {
@@ -42,6 +56,7 @@ async function deleteWorkoutExercise(req, res, next) {
 }
 
 module.exports = {
+  getWorkoutExercise,
   assignExerciseToWorkout,
   updateWorkoutExercise,
   deleteWorkoutExercise
