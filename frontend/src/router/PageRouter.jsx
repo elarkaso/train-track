@@ -5,6 +5,10 @@ import CreateWorkoutPage from "../pages/CreateWorkoutPage";
 import WorkoutDetailPage from "../pages/WorkoutDetailPage";
 import EditWorkoutPage from "../pages/EditWorkoutPage";
 import TrainingBalancePage from "../pages/TrainingBalancePage";
+
+import AssignExerciseToWorkoutPage from "../pages/AssignExerciseToWorkoutPage";
+
+
 import NotFoundPage from "../pages/NotFoundPage";
 
 function PageRouter() {
@@ -17,6 +21,9 @@ function PageRouter() {
         <Route path="/workouts/new" element={<CreateWorkoutPage />} />
         <Route path="/workouts/:id" element={<WorkoutDetailPage />} />
         <Route path="/workouts/:id/edit" element={<EditWorkoutPage />} />
+
+
+        <Route path="/workouts/:id/assign-exercise" element={<AssignExerciseToWorkoutPage />} />
 
         <Route path="/analysis" element={<TrainingBalancePage />} />
 
