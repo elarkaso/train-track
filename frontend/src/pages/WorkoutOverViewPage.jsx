@@ -63,7 +63,7 @@ function WorkoutOverviewPage() {
       <h1>Workout Overview</h1>
 
       <Link to ="/workouts/new">Create Workout</Link>
-
+      <Link to="/exercises">Exercise Catalog</Link>
       <form onSubmit={handleFilterSubmit}>
         <div>
           <label htmlFor="from">From:</label>

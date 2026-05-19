@@ -78,4 +78,9 @@ async function updateWorkout(id, dtoIn) {
     return response.json();
 }
 
-export { getWorkouts, createWorkout, getWorkoutById, updateWorkout };
+export { 
+    getWorkouts, 
+    createWorkout, 
+    getWorkoutById, 
+    updateWorkout 
+};
