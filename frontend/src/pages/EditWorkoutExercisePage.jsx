@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
- 
-  getWorkoutExerciseById,
-  updateWorkoutExercise
-
-} from "../api/workoutExerciseApi";
+import { getWorkoutExerciseById, updateWorkoutExercise } from "../api/workoutExerciseApi";
 
 function EditWorkoutExercisePage() {
   const { id } = useParams();

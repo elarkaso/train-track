@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getExerciseById, updateExercise } from "../api/exerciseApi";
 import { MUSCLE_GROUPS } from "../utils/muscleGroups";
 
-export default function EditExercisePage() {
+function EditExercisePage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -121,3 +121,5 @@ export default function EditExercisePage() {
     </div>
   );
 }
+
+export default EditExercisePage;

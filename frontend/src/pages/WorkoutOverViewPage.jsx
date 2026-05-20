@@ -1,30 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getWorkouts, deleteWorkout } from "../api/workoutApi";
-
-function getCurrentYearRange() {
-  const now = new Date();
-
-  const from = new Date(now.getFullYear(), 0, 1);
-  const to = new Date(now.getFullYear(), 11, 31);
-
-  return {
-    from: from.toISOString().split("T")[0],
-    to: to.toISOString().split("T")[0],
-  };
-}
-
-function getCurrentMonthRange() {
-  const now = new Date();
-
-  const from = new Date(now.getFullYear(), now.getMonth(), 1);
-  const to = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-
-  return {
-    from: from.toISOString().split("T")[0],
-    to: to.toISOString().split("T")[0],
-  };
-}
+import { getCurrentYearRange, getCurrentMonthRange } from "../utils/date";
 
 function WorkoutOverviewPage() {
   const defaultDateRange = getCurrentYearRange();

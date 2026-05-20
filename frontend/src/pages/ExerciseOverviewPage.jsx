@@ -56,7 +56,7 @@ function ExerciseOverviewPage() {
 
   return (
     <div>
-      <h1>Exercise Overview</h1>
+      <h1>Exercise Catalog</h1>
 
       <div>
         <button type="button" onClick={() => window.location.href = '/'}>Back to Workout Overview</button>{" "}

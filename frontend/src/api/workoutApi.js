@@ -1,24 +1,15 @@
+import { apiFetch } from "./apiClient";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
 
 async function getWorkouts(params = {}) {
     const searchParams = new URLSearchParams();
 
-    if (params.from) {
-        searchParams.append("from", params.from);
-    }
-    if (params.to) {
-        searchParams.append("to", params.to);
-    }
+    if (params.from) searchParams.append("from", params.from);
+    if (params.to) searchParams.append("to", params.to);
 
-    const url = `${API_BASE_URL}/workouts?${searchParams.toString()}`;
-    const response = await fetch(url);
-
-    if (!response.ok) {
-        const errorData = await response.json().catch(() => null);
-        throw new Error(errorData?.message || `Failed to fetch workouts: ${response.statusText}`);
-    }
-
-    return response.json();
+    const query = searchParams.toString();
+    return apiFetch(query ? `/workouts?${query}` : "/workouts");
 }
 
 async function createWorkout(dtoIn) {

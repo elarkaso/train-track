@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createExercise } from "../api/exerciseApi";
 import { MUSCLE_GROUPS } from "../utils/muscleGroups";
 
-export default function CreateExercisePage() {
+function CreateExercisePage() {
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -84,3 +84,5 @@ export default function CreateExercisePage() {
     </div>
   );
 }
+
+export default CreateExercisePage;

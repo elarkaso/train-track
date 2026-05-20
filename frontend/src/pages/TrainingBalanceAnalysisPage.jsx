@@ -1,18 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getTrainingBalanceAnalysis } from "../api/analysisApi";
-
-function getCurrentMonthRange() {
-  const now = new Date();
-
-  const from = new Date(now.getFullYear(), now.getMonth(), 1);
-  const to = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-
-  return {
-    from: from.toISOString().split("T")[0],
-    to: to.toISOString().split("T")[0],
-  };
-}
+import { getCurrentMonthRange } from "../utils/date";
 
 function TrainingBalanceAnalysisPage() {
   const defaultRange = getCurrentMonthRange();

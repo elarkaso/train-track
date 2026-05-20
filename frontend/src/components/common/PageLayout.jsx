@@ -5,7 +5,7 @@ function PageLayout() {
     <div>
       <header style={{ padding: "1rem", borderBottom: "1px solid #ddd" }}>
         <h1>TrainTrack</h1>
-        <h3>Track your workouts, analyze your progress, and achieve your fitness goals!</h3>
+        <h3>Track your workouts, analyze your progress, achieve your fitness goals!</h3>
         <nav style={{ display: "flex", gap: "1rem" }}>
           <Link to="/workouts">Workouts</Link>
           <Link to="/workouts/new">Create Workout</Link>

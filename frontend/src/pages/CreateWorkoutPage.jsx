@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createWorkout } from "../api/workoutApi";
-
-function getTodayDate() {
-  return new Date().toISOString().split("T")[0];
-}
+import { getTodayDate } from "../utils/date";
 
 function CreateWorkoutPage() {
   const navigate = useNavigate();
