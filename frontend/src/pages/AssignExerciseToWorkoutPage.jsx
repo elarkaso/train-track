@@ -138,8 +138,7 @@ function AssignExerciseToWorkoutPage() {
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Saving..." : "Assign Exercise"}
         </button>
-
-        <Link to={`/workouts/${workoutId}`}>Cancel</Link>
+        <button type="button" onClick={() => navigate(`/workouts/${workoutId}`)}>Cancel</button>
       </form>
 
       {error && <p style={{ color: "red" }}>Error: {error}</p>}

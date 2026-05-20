@@ -38,8 +38,8 @@ function ExerciseOverviewPage() {
       <h1>Exercise Overview</h1>
 
       <div>
-        <Link to="/">Back to Workout Overview</Link>{" "}
-        <Link to="/exercises/new">Create Exercise</Link>
+        <button type="button" onClick={() => window.location.href = '/'}>Back to Workout Overview</button>{" "}
+        <button type="button" onClick={() => window.location.href = '/exercises/new'}>Create Exercise</button>
       </div>
 
       {exercises.length === 0 ? (
@@ -49,7 +49,7 @@ function ExerciseOverviewPage() {
           {exercises.map((exercise) => (
             <li key={exercise.id}>
               <strong>{exercise.name}</strong> ({exercise.primaryMuscleGroup}){" "}
-              <Link to={`/exercises/${exercise.id}/edit`}>Edit</Link>
+              <button type="button" onClick={() => window.location.href = `/exercises/${exercise.id}/edit`}>Edit</button>
             </li>
           ))}
         </ul>

@@ -74,7 +74,7 @@ function CreateWorkoutPage() {
           {isSubmitting ? "Saving..." : "Save Workout"}
         </button>
 
-        <Link to="/">Cancel</Link>
+        <button type="button" onClick={() => navigate("/")}>Cancel</button>
       </form>
 
       {error && <p style={{ color: "red" }}>Error: {error}</p>}

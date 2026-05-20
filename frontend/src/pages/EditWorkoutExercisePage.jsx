@@ -143,8 +143,7 @@ function EditWorkoutExercisePage() {
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Saving..." : "Save Changes"}
         </button>
-
-        <Link to={`/workouts/${workoutExercise.workout.id}`}>Cancel</Link>
+        <button type="button" onClick={() => navigate(`/workouts/${workoutExercise.workout.id}`)}>Cancel</button>
       </form>
 
       {error && <p style={{ color: "red" }}>Error: {error}</p>}

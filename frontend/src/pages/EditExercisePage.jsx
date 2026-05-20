@@ -114,7 +114,7 @@ export default function EditExercisePage() {
           {isSubmitting ? "Saving..." : "Save Changes"}
         </button>
 
-        <Link to="/exercises">Cancel</Link>
+        <button type="button" onClick={() => navigate("/exercises")}>Cancel</button>
       </form>
 
       {error && <p style={{ color: "red" }}>Error: {error}</p>}

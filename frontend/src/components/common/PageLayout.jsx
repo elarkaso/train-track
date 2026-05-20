@@ -9,6 +9,7 @@ function PageLayout() {
         <nav style={{ display: "flex", gap: "1rem" }}>
           <Link to="/workouts">Workouts</Link>
           <Link to="/workouts/new">Create Workout</Link>
+          <Link to="/exercises">Exercise Catalog</Link>
           <Link to="/analysis">Analysis</Link>
         </nav>
       </header>

@@ -17,7 +17,7 @@ import EditExercisePage from "../pages/EditExercisePage";
 import EditWorkoutExercisePage from "../pages/EditWorkoutExercisePage";
 
 // Import page (Analysis)
-import TrainingBalancePage from "../pages/TrainingBalancePage";
+import TrainingBalanceAnalysisPage from "../pages/TrainingBalanceAnalysisPage";
 
 // Page not found handler
 import NotFoundPage from "../pages/NotFoundPage";
@@ -44,7 +44,7 @@ function PageRouter() {
         <Route path="/workout-exercises/:id/edit" element={<EditWorkoutExercisePage />} />
 
         // analysis route
-        <Route path="/analysis" element={<TrainingBalancePage />} />
+        <Route path="/analysis" element={<TrainingBalanceAnalysisPage />} />
 
         // page not found route
         <Route path="*" element={<NotFoundPage />} />

@@ -62,8 +62,7 @@ function WorkoutOverviewPage() {
     <div>
       <h1>Workout Overview</h1>
 
-      <Link to ="/workouts/new">Create Workout</Link>
-      <Link to="/exercises">Exercise Catalog</Link>
+      <button type="button" onClick={() => window.location.href = "/workouts/new"}>Create Workout</button>
       <form onSubmit={handleFilterSubmit}>
         <div>
           <label htmlFor="from">From:</label>
@@ -96,8 +95,8 @@ function WorkoutOverviewPage() {
           {workouts.map((workout) => (
             <li key={workout.id}>
               <strong>{workout.name}</strong> - {workout.date.slice(0, 10)}
-              <Link to={`/workouts/${workout.id}`}>View</Link>{" "}
-              <Link to={`/workouts/${workout.id}/edit`}>Edit</Link>
+              <button type="button" onClick={() => window.location.href = `/workouts/${workout.id}`}>View</button>{" "}
+              <button type="button" onClick={() => window.location.href = `/workouts/${workout.id}/edit`}>Edit</button>
             </li>
           ))}
         </ul>
