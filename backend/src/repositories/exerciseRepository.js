@@ -12,6 +12,13 @@ async function getExerciseById(id) {
   });
 }
 
+async function isExerciseAssignedToWorkout(exerciseId) {
+  const count = await prisma.workoutExercise.count({
+    where: { exerciseId }
+  });
+  return count > 0;
+}
+
 async function updateExercise(id, exerciseData) {
   return prisma.exercise.update({
     where: { id },
@@ -37,5 +44,6 @@ module.exports = {
   getExerciseById,
   updateExercise,
   deleteExercise,
-  listExercises
+  listExercises,
+  isExerciseAssignedToWorkout
 };

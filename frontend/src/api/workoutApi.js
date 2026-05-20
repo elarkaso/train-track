@@ -78,9 +78,32 @@ async function updateWorkout(id, dtoIn) {
     return response.json();
 }
 
+async function deleteWorkout(id) {
+    const response = await fetch(`${API_BASE_URL}/workouts/${id}`, {
+        method: "DELETE",
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        // handle error workout not found
+        if (errorData?.error?.code === "workoutNotFound") {
+            throw new Error("Workout not found.");
+        }
+        // handle error workout has assigned exercises
+        if (errorData?.error?.code === "workoutContainsAssignedExercises") {
+            window.alert("Cannot delete workout because it has assigned exercises. Please remove all assigned exercises before deleting the workout.");
+            return; // exit early since we don't want to throw an error in this case
+        }
+        throw new Error(errorData?.message || `Failed to delete workout: ${response.statusText}`);
+    }
+
+    return response.json();
+}
+
 export { 
     getWorkouts, 
     createWorkout, 
     getWorkoutById, 
-    updateWorkout 
+    updateWorkout,
+    deleteWorkout
 };

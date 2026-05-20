@@ -1,11 +1,32 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getExercises } from "../api/exerciseApi";
+import { getExercises, deleteExercise } from "../api/exerciseApi";
 
 function ExerciseOverviewPage() {
   const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  async function handleDeleteExercise(exerciseId) {
+  const confirmed = window.confirm("Do you really want to delete this exercise?");
+
+  if (!confirmed) {
+    return;
+  }
+
+  try {
+    setError(null);
+    const deleteResult = await deleteExercise(exerciseId);
+
+    if (!deleteResult?.deleted || Number(deleteResult.id) !== Number(exerciseId)) {
+      return;
+    }
+
+    setExercises((prevExercises) => prevExercises.filter((exercise) => exercise.id !== exerciseId));
+  } catch (err) {
+    console.error("Failed to delete exercise:", err);
+  }
+}
 
   useEffect(() => {
     async function loadExercises() {
@@ -50,6 +71,7 @@ function ExerciseOverviewPage() {
             <li key={exercise.id}>
               <strong>{exercise.name}</strong> ({exercise.primaryMuscleGroup}){" "}
               <button type="button" onClick={() => window.location.href = `/exercises/${exercise.id}/edit`}>Edit</button>
+              <button type="button" onClick={() => handleDeleteExercise(exercise.id)}>Delete</button>
             </li>
           ))}
         </ul>

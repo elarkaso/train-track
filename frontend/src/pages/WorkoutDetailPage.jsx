@@ -3,33 +3,34 @@ import { Link, useParams } from "react-router-dom";
 import { getWorkoutById } from "../api/workoutApi";
 import { deleteWorkoutExercise } from "../api/workoutExerciseApi";
 
-async function handleDeleteAssignment(assignmentId) {
-  const confirmed = window.confirm("Are you sure you want to delete this exercise assignment?");
-
-  if (!confirmed) {
-    return;
-  }
-
-  try {
-    await deleteWorkoutExercise(assignmentId);
-
-    setWorkout((prevWorkout) => ({
-      ...prevWorkout,
-      workoutExercises: prevWorkout.workoutExercises.filter(
-        (item) => item.id !== assignmentId
-      ),
-    }));
-  } catch (err) {
-    console.error("Failed to delete exercise assignment:", err);
-  }
-}
-
 function WorkoutDetailPage() {
   const { id } = useParams();
 
   const [workout, setWorkout] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  async function handleDeleteAssignment(assignmentId) {
+    const confirmed = window.confirm("Are you sure you want to delete this exercise assignment?"); 
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await deleteWorkoutExercise(assignmentId);
+
+      setWorkout((prevWorkout) => ({
+        ...prevWorkout,
+        workoutExercises: prevWorkout.workoutExercises.filter(
+          (item) => item.id !== assignmentId
+        ),
+      }));
+    } catch (err) {
+      console.error("Failed to delete exercise assignment:", err);
+      window.alert("Failed to delete exercise assignment. Please try again.");
+    }
+  }
 
   useEffect(() => {
     async function loadWorkout() {

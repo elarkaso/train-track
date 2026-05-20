@@ -146,6 +146,14 @@ async function deleteExercise(dtoIn) {
     throw error;
   }
 
+  const isAssignedToWorkout = await exerciseRepository.isExerciseAssignedToWorkout(id);
+  if (isAssignedToWorkout) {
+    const error = new Error("The exercise cannot be deleted because it is assigned to a workout.");
+    error.statusCode = 400;
+    error.code = "exerciseInUse";
+    throw error;
+  }
+
   await exerciseRepository.deleteExercise(id);
 
   return {

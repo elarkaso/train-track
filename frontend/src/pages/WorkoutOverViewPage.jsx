@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getWorkouts } from "../api/workoutApi";
 import { Link } from "react-router-dom";
+import { getWorkouts, deleteWorkout } from "../api/workoutApi";
 
 function getCurrentYearRange() {
   const now = new Date();
@@ -34,6 +34,27 @@ function WorkoutOverviewPage() {
   const [to, setTo] = useState(defaultDateRange.to);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  async function handleDeleteWorkout(workoutId) {
+    const confirmed = window.confirm("Are you sure you want to delete this workout?");
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      setError(null);
+      const deleteResult = await deleteWorkout(workoutId);
+
+      if (!deleteResult?.deleted || Number(deleteResult.id) !== Number(workoutId)) {
+        return;
+      }
+
+      setWorkouts((prevWorkouts) => prevWorkouts.filter((workout) => workout.id !== workoutId));
+    } catch (err) {
+      console.error("Failed to delete workout:", err);
+    }
+  }
 
   async function loadWorkouts(filters = { from, to }) {
     try {
@@ -97,6 +118,7 @@ function WorkoutOverviewPage() {
               <strong>{workout.name}</strong> - {workout.date.slice(0, 10)}
               <button type="button" onClick={() => window.location.href = `/workouts/${workout.id}`}>View</button>{" "}
               <button type="button" onClick={() => window.location.href = `/workouts/${workout.id}/edit`}>Edit</button>
+              <button type="button" onClick={() => handleDeleteWorkout(workout.id)}>Delete</button>
             </li>
           ))}
         </ul>

@@ -76,6 +76,15 @@ app.use((error, req, res, next) => {
     });
   }
 
+  if (error.code === "23001") {
+    return res.status(400).json({
+      error: {
+        code: "exerciseInUse",
+        message: "The exercise cannot be deleted because it is assigned to a workout."
+      }
+    });
+  }
+
   res.status(error.statusCode || 500).json({
     error: {
       code: error.code || "internalServerError",
