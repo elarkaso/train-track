@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
+import { apiFetch, API_BASE_URL } from "./apiClient";
 
 async function createExercise(dtoIn) {
   const response = await fetch(`${API_BASE_URL}/exercises`, {
@@ -74,10 +74,4 @@ async function deleteExercise(id) {
   return response.json();
 }
 
-export { 
-    createExercise,
-    getExerciseById,
-    getExercises,
-    updateExercise,
-    deleteExercise
-};
+export { createExercise, getExerciseById, getExercises, updateExercise, deleteExercise };

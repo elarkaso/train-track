@@ -1,6 +1,4 @@
-import { apiFetch } from "./apiClient";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
+import { apiFetch, API_BASE_URL } from "./apiClient";
 
 async function getWorkouts(params = {}) {
     const searchParams = new URLSearchParams();
