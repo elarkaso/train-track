@@ -58,9 +58,4 @@ async function deleteWorkoutExercise(id) {
   return response.json();
 }
 
-export {
-  assignExerciseToWorkout,
-  getWorkoutExerciseById,
-  updateWorkoutExercise,
-  deleteWorkoutExercise
-};
+export { assignExerciseToWorkout, getWorkoutExerciseById, updateWorkoutExercise, deleteWorkoutExercise };
