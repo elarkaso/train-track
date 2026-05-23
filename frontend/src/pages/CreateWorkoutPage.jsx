@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { createWorkout } from "../api/workoutApi";
 import { getTodayDate } from "../utils/date";
+
+import { ErrorMessage } from "../components/messages/ErrorMessage";
+import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function CreateWorkoutPage() {
   const navigate = useNavigate();
@@ -74,7 +78,7 @@ function CreateWorkoutPage() {
         <button type="button" onClick={() => navigate("/")}>Cancel</button>
       </form>
 
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+      {error && <ErrorMessage message={error} />}
     </div>
   );
 }

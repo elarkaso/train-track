@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { createExercise } from "../api/exerciseApi";
+
 import { MUSCLE_GROUPS } from "../utils/muscleGroups";
+
+import { ErrorMessage } from "../components/messages/ErrorMessage";
+import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function CreateExercisePage() {
   const navigate = useNavigate();
@@ -80,7 +85,7 @@ function CreateExercisePage() {
         <button type="button" onClick={() => navigate("/exercises")}>Cancel</button>
       </form>
 
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+      {error && <ErrorMessage message={error} />}
     </div>
   );
 }

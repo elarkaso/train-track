@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+
 import { getWorkoutExerciseById, updateWorkoutExercise } from "../api/workoutExerciseApi";
+
+import { ErrorMessage } from "../components/messages/ErrorMessage";
+import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function EditWorkoutExercisePage() {
   const { id } = useParams();
@@ -27,6 +31,7 @@ function EditWorkoutExercisePage() {
         setSets(loadedWorkoutExercise.sets);
         setRepetitions(loadedWorkoutExercise.repetitions);
         setUsedWeight(loadedWorkoutExercise.usedWeight);
+        
       } catch (err) {
         setError(err.message);
       } finally {
@@ -74,21 +79,21 @@ function EditWorkoutExercisePage() {
   }
 
   if (isLoading) {
-    return <p>Loading workout exercise...</p>;
+    return <LoadingMessage message="Loading workout exercise..." />;
   }
 
   if (error && !workoutExercise) {
     return (
       <div>
         <h1>Edit Workout Exercise</h1>
-        <p style={{ color: "red" }}>Error: {error}</p>
+        <ErrorMessage message={error} />
         <Link to="/">Back to Overview</Link>
       </div>
     );
   }
 
   if (!workoutExercise) {
-    return <p>Workout exercise not found.</p>;
+    return <ErrorMessage message="Workout exercise not found." />;
   }
 
   return (
@@ -141,7 +146,7 @@ function EditWorkoutExercisePage() {
         <button type="button" onClick={() => navigate(`/workouts/${workoutExercise.workout.id}`)}>Cancel</button>
       </form>
 
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+      {error && <ErrorMessage message={error} />}
     </div>
   );
 }

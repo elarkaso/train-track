@@ -4,7 +4,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getExercises } from "../api/exerciseApi";
 import { assignExerciseToWorkout } from "../api/workoutExerciseApi";
 
-import 
+import { ErrorMessage } from "../components/messages/ErrorMessage";
+import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function AssignExerciseToWorkoutPage() {
   const { id: workoutId } = useParams();
@@ -80,7 +81,7 @@ function AssignExerciseToWorkoutPage() {
   }
 
   if (isLoading) {
-    return <p>Loading exercises...</p>;
+    return <LoadingMessage message="Loading exercises..." />;
   }
 
   return (
@@ -144,7 +145,7 @@ function AssignExerciseToWorkoutPage() {
         <button type="button" onClick={() => navigate(`/workouts/${workoutId}`)}>Cancel</button>
       </form>
 
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+      {error && <ErrorMessage message={error} />}
     </div>
   );
 }

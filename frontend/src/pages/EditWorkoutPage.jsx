@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+
 import { getWorkoutById, updateWorkout } from "../api/workoutApi";
+
+import { ErrorMessage } from "../components/messages/ErrorMessage";
+import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function EditWorkoutPage() {
   const { id } = useParams();
@@ -64,7 +68,7 @@ function EditWorkoutPage() {
   }
 
   if (isLoading) {
-    return <p>Loading workout...</p>;
+    return <LoadingMessage message="Loading workout..." />;
   }
 
   return (
@@ -99,7 +103,7 @@ function EditWorkoutPage() {
         <button type="button" onClick={() => navigate("/")}>Cancel</button>
       </form>
 
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+      {error && <ErrorMessage message={error} />}
     </div>
   );
 }

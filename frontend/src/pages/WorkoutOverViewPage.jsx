@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 import { getWorkouts, deleteWorkout } from "../api/workoutApi";
+
 import { getCurrentYearRange, getCurrentMonthRange } from "../utils/date";
+
+import { ErrorMessage } from "../components/messages/ErrorMessage";
+import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function WorkoutOverviewPage() {
   const defaultDateRange = getCurrentYearRange();
@@ -84,10 +89,10 @@ function WorkoutOverviewPage() {
         <button type="submit">Filter</button>
       </form>
 
-      {isLoading && <p>Loading workouts...</p>}
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+      {isLoading && <LoadingMessage message="Loading workouts..." />}
+      {error && <ErrorMessage message={error} />}
       
-      {!isLoading && !error && workouts.length === 0 && <p>No workouts found for the selected period.</p>}
+      {!isLoading && !error && workouts.length === 0 && <ErrorMessage message="No workouts found for the selected period." />}
       {!isLoading && !error && workouts.length > 0 && (
         <ul>
           {workouts.map((workout) => (

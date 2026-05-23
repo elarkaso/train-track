@@ -3,6 +3,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getExerciseById, updateExercise } from "../api/exerciseApi";
 import { MUSCLE_GROUPS } from "../utils/muscleGroups";
 
+import { ErrorMessage } from "../components/messages/ErrorMessage";
+import { LoadingMessage } from "../components/messages/LoadingMessage";
+
 function EditExercisePage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -65,14 +68,14 @@ function EditExercisePage() {
   }
 
   if (isLoading) {
-    return <p>Loading exercise...</p>;
+    return <LoadingMessage message="Loading exercise..." />;
   }
 
   if (error && !name && !primaryMuscleGroup) {
     return (
       <div>
         <h1>Edit Exercise</h1>
-        <p style={{ color: "red" }}>Error: {error}</p>
+        <ErrorMessage message={error} />
         <Link to="/exercises">Back to Exercise Overview</Link>
       </div>
     );
@@ -117,7 +120,7 @@ function EditExercisePage() {
         <button type="button" onClick={() => navigate("/exercises")}>Cancel</button>
       </form>
 
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+      {error && <ErrorMessage message={error} />}
     </div>
   );
 }

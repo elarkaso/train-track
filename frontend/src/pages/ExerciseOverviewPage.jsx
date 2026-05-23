@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 import { getExercises, deleteExercise } from "../api/exerciseApi";
+
+import { ErrorMessage } from "../components/messages/ErrorMessage";
+import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function ExerciseOverviewPage() {
   const [exercises, setExercises] = useState([]);
@@ -24,7 +28,7 @@ function ExerciseOverviewPage() {
 
     setExercises((prevExercises) => prevExercises.filter((exercise) => exercise.id !== exerciseId));
   } catch (err) {
-    console.error("Failed to delete exercise:", err);
+    setError(err.message);
   }
 }
 
@@ -47,11 +51,11 @@ function ExerciseOverviewPage() {
   }, []);
 
   if (isLoading) {
-    return <p>Loading exercises...</p>;
+    return <LoadingMessage message="Loading exercises..." />;
   }
 
   if (error) {
-    return <p style={{ color: "red" }}>Error: {error}</p>;
+    return <ErrorMessage message={error} />;
   }
 
   return (

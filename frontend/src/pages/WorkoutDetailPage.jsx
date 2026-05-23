@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+
 import { getWorkoutById } from "../api/workoutApi";
 import { deleteWorkoutExercise } from "../api/workoutExerciseApi";
+
+import { ErrorMessage } from "../components/messages/ErrorMessage";
+import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function WorkoutDetailPage() {
   const { id } = useParams();
@@ -51,15 +55,15 @@ function WorkoutDetailPage() {
   }, [id]);
 
   if (isLoading) {
-    return <p>Loading workout detail...</p>;
+    return <LoadingMessage message="Loading workout detail..." />;
   }
 
   if (error) {
-    return <p style={{ color: "red" }}>Error: {error}</p>;
+    return <ErrorMessage message={error} />;
   }
 
   if (!workout) {
-    return <p>Workout not found.</p>;
+    return <ErrorMessage message="Workout not found." />;
   }
 
   return (

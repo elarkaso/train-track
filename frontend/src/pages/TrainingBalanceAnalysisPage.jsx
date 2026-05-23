@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 import { getTrainingBalanceAnalysis } from "../api/analysisApi";
+
 import { getCurrentMonthRange } from "../utils/date";
+
+import { ErrorMessage } from "../components/messages/ErrorMessage";
+import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function TrainingBalanceAnalysisPage() {
   const defaultRange = getCurrentMonthRange();
@@ -75,8 +80,8 @@ function TrainingBalanceAnalysisPage() {
         <button type="submit">Analyze</button>
       </form>
 
-      {isLoading && <p>Loading analysis...</p>}
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+      {isLoading && <LoadingMessage message="Loading analysis..." />}
+      {error && <ErrorMessage message={error} />}
 
       {!isLoading && !error && analysis && (
         <div>

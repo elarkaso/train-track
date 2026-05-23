@@ -1,4 +1,4 @@
-function errorMessage({ message }) {
+function ErrorMessage({ message }) {
   if (!message) {
     return null;
   }
@@ -10,4 +10,4 @@ function errorMessage({ message }) {
   );
 }
 
-export default errorMessage;
+export { ErrorMessage };
