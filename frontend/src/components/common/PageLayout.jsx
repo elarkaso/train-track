@@ -2,19 +2,31 @@ import { Link, Outlet } from "react-router-dom";
 
 function PageLayout() {
   return (
-    <div>
-      <header style={{ padding: "1rem", borderBottom: "1px solid #ddd" }}>
+    <div className="page-layout">
+      <header className="main-header">
         <h1>TrainTrack</h1>
-        <h3>Track your workouts, analyze your progress, achieve your fitness goals!</h3>
-        <nav style={{ display: "flex", gap: "1rem" }}>
-          <Link to="/workouts">Workouts</Link>
-          <Link to="/workouts/new">Create Workout</Link>
-          <Link to="/exercises">Exercise Catalog</Link>
-          <Link to="/analysis">Analysis</Link>
+        <p>Track your workouts, analyze your progress, and achieve your fitness goals!</p>
+
+        <nav className="main-nav">
+          <Link to="/workouts" className="button-link">
+            Workouts
+          </Link>
+          <Link to="/workouts/new" className="button-link">
+            Create Workout
+          </Link>
+          <Link to="/exercises" className="button-link">
+            Exercise Catalog
+          </Link>
+          <Link to="/exercises/new" className="button-link">
+            Create Exercise
+          </Link>
+          <Link to="/analysis" className="button-link">
+            Analysis
+          </Link>
         </nav>
       </header>
 
-      <main style={{ padding: "1rem" }}>
+      <main className="page-content">
         <Outlet />
       </main>
     </div>

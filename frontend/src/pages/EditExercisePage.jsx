@@ -73,8 +73,10 @@ function EditExercisePage() {
 
   if (error && !name && !primaryMuscleGroup) {
     return (
-      <div>
-        <h1>Edit Exercise</h1>
+      <div className="page-layout">
+        <header className="page-header">
+          <h2>Edit Exercise</h2>
+        </header>
         <ErrorMessage message={error} />
         <Link to="/exercises">Back to Exercise Overview</Link>
       </div>
@@ -82,8 +84,10 @@ function EditExercisePage() {
   }
 
   return (
-    <div>
-      <h1>Edit Exercise</h1>
+    <div className="page-layout">
+      <header className="page-header">
+        <h2>Edit Exercise</h2>
+      </header>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -112,12 +116,13 @@ function EditExercisePage() {
             ))}
           </select>
         </div>
+        <div className="form-buttons">
+          <button className="submit" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save Changes"}
+          </button>
 
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving..." : "Save Changes"}
-        </button>
-
-        <button type="button" onClick={() => navigate("/exercises")}>Cancel</button>
+          <button className="submit" type="button" onClick={() => navigate("/exercises")}>Cancel</button>
+        </div>
       </form>
 
       {error && <ErrorMessage message={error} />}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { getWorkouts, deleteWorkout } from "../api/workoutApi";
 
-import { getCurrentYearRange, getCurrentMonthRange } from "../utils/date";
+import { getCurrentYearRange, getCurrentMonthRange, formatDateToDisplay } from "../utils/date";
 
 import { ErrorMessage } from "../components/messages/ErrorMessage";
 import { LoadingMessage } from "../components/messages/LoadingMessage";
@@ -62,11 +62,12 @@ function WorkoutOverviewPage() {
   }
 
   return (
-    <div>
-      <h1>Workout Overview</h1>
-
-      <button type="button" onClick={() => window.location.href = "/workouts/new"}>Create Workout</button>
-      <form onSubmit={handleFilterSubmit}>
+    <div className="page-layout">
+      <header className="page-header">
+        <h2>Workout Overview</h2>
+      </header>
+      <div className="form-actions">
+        <form className="filter-form" onSubmit={handleFilterSubmit}>
         <div>
           <label htmlFor="from">From:</label>
           <input
@@ -86,21 +87,31 @@ function WorkoutOverviewPage() {
             onChange={(e) => setTo(e.target.value)}
           />
         </div>
-        <button type="submit">Filter</button>
+        <button className="submit" type="submit">Filter</button>
       </form>
+      </div>
 
       {isLoading && <LoadingMessage message="Loading workouts..." />}
       {error && <ErrorMessage message={error} />}
       
       {!isLoading && !error && workouts.length === 0 && <ErrorMessage message="No workouts found for the selected period." />}
       {!isLoading && !error && workouts.length > 0 && (
-        <ul>
+        <ul className="workout-list">
           {workouts.map((workout) => (
-            <li key={workout.id}>
-              <strong>{workout.name}</strong> - {workout.date.slice(0, 10)}
-              <button type="button" onClick={() => window.location.href = `/workouts/${workout.id}`}>View</button>{" "}
-              <button type="button" onClick={() => window.location.href = `/workouts/${workout.id}/edit`}>Edit</button>
-              <button type="button" onClick={() => handleDeleteWorkout(workout.id)}>Delete</button>
+            <li className="workout-item" key={workout.id}>
+
+              <div className="workout-name">
+                <strong>{workout.name}</strong>
+              </div>
+              
+              <div className="workout-date">
+                {formatDateToDisplay(workout.date)}
+              </div>
+              <div className="workout-actions">
+                <button type="button" onClick={() => window.location.href = `/workouts/${workout.id}`}>View</button>{" "}
+                <button type="button" onClick={() => window.location.href = `/workouts/${workout.id}/edit`}>Edit</button>
+                <button type="button" onClick={() => handleDeleteWorkout(workout.id)}>Delete</button>
+              </div>
             </li>
           ))}
         </ul>

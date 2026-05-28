@@ -27,26 +27,26 @@ function PageRouter() {
     <Routes>
       <Route element={<PageLayout />}>
 
-       // workout-related routes
+        {/* workout-related routes */}
         <Route path="/" element={<Navigate to="/workouts" replace />} />
         <Route path="/workouts" element={<WorkoutOverviewPage />} />
         <Route path="/workouts/new" element={<CreateWorkoutPage />} />
         <Route path="/workouts/:id" element={<WorkoutDetailPage />} />
         <Route path="/workouts/:id/edit" element={<EditWorkoutPage />} />
         
-        // exercise-related routes
+        {/* exercise-related routes */}
         <Route path="/exercises/new" element={<CreateExercisePage />} />
         <Route path="/exercises/:id/edit" element={<EditExercisePage />} />
         <Route path="/exercises" element={<ExerciseOverviewPage />} />
 
-        // workout exercise-related routes
+        {/* workout exercise-related routes */}
         <Route path="/workouts/:id/assign-exercise" element={<AssignExerciseToWorkoutPage />} />
         <Route path="/workout-exercises/:id/edit" element={<EditWorkoutExercisePage />} />
 
-        // analysis route
+        {/* analysis route */}
         <Route path="/analysis" element={<TrainingBalanceAnalysisPage />} />
 
-        // page not found route
+        {/* page not found route */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

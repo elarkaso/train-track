@@ -67,9 +67,10 @@ function WorkoutDetailPage() {
   }
 
   return (
-    <div>
-      <h1>Workout Detail</h1>
-
+    <div className="page-layout">
+      <header className="page-header">
+        <h2>Workout Detail</h2>
+      </header>
       <p>
         <strong>Name:</strong> {workout.name}
       </p>
@@ -78,7 +79,7 @@ function WorkoutDetailPage() {
         <strong>Date:</strong> {workout.date?.slice(0, 10)}
       </p>
 
-      <div>
+      <div className="page-actions">
         <button onClick={() => window.location.href = "/"}>Back to Overview</button>{" "}
         <button onClick={() => window.location.href = `/workouts/${workout.id}/assign-exercise`}>Assign Exercise</button>
       </div>

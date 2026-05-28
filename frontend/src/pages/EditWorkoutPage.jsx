@@ -72,8 +72,10 @@ function EditWorkoutPage() {
   }
 
   return (
-    <div>
-      <h1>Edit Workout</h1>
+    <div className="page-layout">
+      <header className="page-header">
+        <h2>Edit Workout</h2>
+      </header>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -96,11 +98,12 @@ function EditWorkoutPage() {
             onChange={(e) => setDate(e.target.value)}
           />
         </div>
-
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving..." : "Save Changes"}
-        </button>
-        <button type="button" onClick={() => navigate("/")}>Cancel</button>
+        <div className="form-buttons">
+          <button className="submit" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save Changes"}
+          </button>
+          <button className="submit" type="button" onClick={() => navigate("/")}>Cancel</button>
+        </div>
       </form>
 
       {error && <ErrorMessage message={error} />}

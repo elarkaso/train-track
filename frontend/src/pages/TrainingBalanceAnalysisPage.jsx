@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 import { getTrainingBalanceAnalysis } from "../api/analysisApi";
 
-import { getCurrentMonthRange } from "../utils/date";
+import { getCurrentMonthRange, getCurrentYearRange } from "../utils/date";
 
 import { ErrorMessage } from "../components/messages/ErrorMessage";
 import { LoadingMessage } from "../components/messages/LoadingMessage";
@@ -47,82 +46,132 @@ function TrainingBalanceAnalysisPage() {
   }
 
   const warningMessage = analysis?.uuAppErrorMap?.noDataForSelectedPeriod?.message;
+  const summaryItems = analysis?.muscleGroupSummary || [];
+  const totalSets = summaryItems.reduce((sum, item) => sum + item.totalSets, 0);
+
+  function applyPresetRange(range) {
+    setFrom(range.from);
+    setTo(range.to);
+    loadAnalysis(range);
+  }
 
   return (
-    <div>
-      <h1>Training Balance Analysis</h1>
+    <div className="page-layout">
+      <header className="page-header">
+        <h2>Training Balance Analysis</h2>
+        <p className="page-subtitle">
+          Keep your training  volume balanced across muscle groups to optimize progress and reduce inefficient muscle overload.
+        </p>
+      </header>
 
-      <div>
-        <button onClick={() => window.location.href = "/"}>Back to Workout Overview</button>
+      <div className="form-actions">
+        <form className="filter-form" onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label htmlFor="from">From:</label>
+            <input
+              id="from"
+              type="date"
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
+            />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="to">To:</label>
+            <input
+              id="to"
+              type="date"
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+            />
+          </div>
+
+          <div className="form-inline-actions">
+            <button className="submit" type="submit">Analyze</button>
+          </div>
+        </form>
+
+        <div className="form-presets">
+          <button type="button" className="button-muted" onClick={() => applyPresetRange(getCurrentMonthRange())}>
+            This Month
+          </button>
+          <button type="button" className="button-muted" onClick={() => applyPresetRange(getCurrentYearRange())}>
+            This Year
+          </button>
+        </div>
       </div>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="from">From:</label>
-          <input
-            id="from"
-            type="date"
-            value={from}
-            onChange={(e) => setFrom(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="to">To:</label>
-          <input
-            id="to"
-            type="date"
-            value={to}
-            onChange={(e) => setTo(e.target.value)}
-          />
-        </div>
-
-        <button type="submit">Analyze</button>
-      </form>
 
       {isLoading && <LoadingMessage message="Loading analysis..." />}
       {error && <ErrorMessage message={error} />}
 
       {!isLoading && !error && analysis && (
-        <div>
-          <p>
-            <strong>Selected period:</strong> {analysis.period.from} - {analysis.period.to}
-          </p>
+        <section className="results-stack">
 
           {warningMessage && (
-            <p style={{ color: "darkorange" }}>Warning: {warningMessage}</p>
+            <p className="warning-message callout-warning">Warning: {warningMessage}</p>
           )}
 
-          <h2>Muscle Group Summary</h2>
+          <div className="stat-grid">
+            <article className="stat-card">
+              <h3 className="stat-label">Most Trained</h3>
+              <p className="stat-value">
+                {analysis.mostTrainedMuscleGroup
+                  ? analysis.mostTrainedMuscleGroup.primaryMuscleGroup
+                  : "N/A"}
+              </p>
+              <p className="stat-meta">
+                {analysis.mostTrainedMuscleGroup
+                  ? `${analysis.mostTrainedMuscleGroup.totalSets} sets`
+                  : "No data"}
+              </p>
+            </article>
 
-          {analysis.muscleGroupSummary?.length > 0 ? (
-            <ul>
-              {analysis.muscleGroupSummary.map((item) => (
-                <li key={item.primaryMuscleGroup}>
-                  <strong>{item.primaryMuscleGroup}</strong>: {item.totalSets} sets
-                </li>
-              ))}
+            <article className="stat-card">
+              <h3 className="stat-label">Least Trained</h3>
+              <p className="stat-value">
+                {analysis.leastTrainedMuscleGroup
+                  ? analysis.leastTrainedMuscleGroup.primaryMuscleGroup
+                  : "N/A"}
+              </p>
+              <p className="stat-meta">
+                {analysis.leastTrainedMuscleGroup
+                  ? `${analysis.leastTrainedMuscleGroup.totalSets} sets`
+                  : "No data"}
+              </p>
+            </article>
+
+            <article className="stat-card">
+              <h3 className="stat-label">Total Sets</h3>
+              <p className="stat-value">{totalSets}</p>
+              <p className="stat-meta">Across selected period</p>
+            </article>
+          </div>
+
+          <h2 className="content-header">Muscle Group Summary</h2>
+
+          {summaryItems.length > 0 ? (
+            <ul className="data-grid">
+              {summaryItems.map((item) => {
+                const ratio = totalSets > 0 ? Math.round((item.totalSets / totalSets) * 100) : 0;
+
+                return (
+                  <li className="data-card" key={item.primaryMuscleGroup}>
+                    <div className="data-card-header">
+                      <strong>{item.primaryMuscleGroup}</strong>
+                      <span>{item.totalSets} sets</span>
+                    </div>
+                    <div className="progress-bar">
+                      <span style={{ width: `${ratio}%` }} />
+                    </div>
+                    <p className="data-card-footnote">{ratio}% of total volume</p>
+                  </li>
+                );
+              })}
             </ul>
           ) : (
             <p>No summary data available.</p>
           )}
-
-          <h2>Highlights</h2>
-
-          <p>
-            <strong>Most trained muscle group:</strong>{" "}
-            {analysis.mostTrainedMuscleGroup
-              ? `${analysis.mostTrainedMuscleGroup.primaryMuscleGroup} (${analysis.mostTrainedMuscleGroup.totalSets} sets)`
-              : "N/A"}
-          </p>
-
-          <p>
-            <strong>Least trained muscle group:</strong>{" "}
-            {analysis.leastTrainedMuscleGroup
-              ? `${analysis.leastTrainedMuscleGroup.primaryMuscleGroup} (${analysis.leastTrainedMuscleGroup.totalSets} sets)`
-              : "N/A"}
-          </p>
-        </div>
+        </section>
       )}
     </div>
   );

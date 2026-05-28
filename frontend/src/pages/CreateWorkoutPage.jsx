@@ -46,9 +46,10 @@ function CreateWorkoutPage() {
   }
 
   return (
-    <div>
-      <h1>Create Workout</h1>
-
+      <div className="page-layout">
+      <header className="page-header">
+        <h2>Create Workout</h2>
+      </header>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Workout name:</label>
@@ -70,12 +71,13 @@ function CreateWorkoutPage() {
             onChange={(e) => setDate(e.target.value)}
           />
         </div>
+        <div className="form-buttons">
+          <button className="submit" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save Workout"}
+          </button>
 
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving..." : "Save Workout"}
-        </button>
-
-        <button type="button" onClick={() => navigate("/")}>Cancel</button>
+          <button className="submit" type="button" onClick={() => navigate("/")}>Cancel</button>
+        </div>
       </form>
 
       {error && <ErrorMessage message={error} />}

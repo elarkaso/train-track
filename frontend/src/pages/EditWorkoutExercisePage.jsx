@@ -84,8 +84,10 @@ function EditWorkoutExercisePage() {
 
   if (error && !workoutExercise) {
     return (
-      <div>
-        <h1>Edit Workout Exercise</h1>
+      <div className="page-layout">
+        <header className="page-header">
+          <h2>Edit Workout Exercise</h2>
+        </header>
         <ErrorMessage message={error} />
         <Link to="/">Back to Overview</Link>
       </div>
@@ -97,8 +99,10 @@ function EditWorkoutExercisePage() {
   }
 
   return (
-    <div>
-      <h1>Edit Workout Exercise</h1>
+    <div className="page-layout">
+      <header className="page-header">
+        <h2>Edit Workout Exercise</h2>
+      </header>
 
       <p>
         <strong>Exercise:</strong> {workoutExercise.exercise?.name} (
@@ -140,10 +144,12 @@ function EditWorkoutExercisePage() {
           />
         </div>
 
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving..." : "Save Changes"}
-        </button>
-        <button type="button" onClick={() => navigate(`/workouts/${workoutExercise.workout.id}`)}>Cancel</button>
+        <div className="form-buttons">
+          <button className="submit" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save Changes"}
+          </button>
+          <button className="submit" type="button" onClick={() => navigate(`/workouts/${workoutExercise.workout.id}`)}>Cancel</button>
+        </div>
       </form>
 
       {error && <ErrorMessage message={error} />}

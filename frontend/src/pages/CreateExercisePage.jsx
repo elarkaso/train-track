@@ -47,8 +47,10 @@ function CreateExercisePage() {
   }
 
   return (
-    <div>
-      <h1>Create Exercise</h1>
+    <div className="page-layout">
+      <header className="page-header">
+        <h2>Create Exercise</h2>
+      </header>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -77,12 +79,13 @@ function CreateExercisePage() {
             ))}
           </select>
         </div>
-
-        <button type="submit" disabled={isSubmitting}>
+        <div className="form-buttons">
+          <button className="submit" type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Saving..." : "Save Exercise"}
-        </button>
+          </button>
 
-        <button type="button" onClick={() => navigate("/exercises")}>Cancel</button>
+          <button className="submit" type="button" onClick={() => navigate("/exercises")}>Cancel</button>
+        </div>
       </form>
 
       {error && <ErrorMessage message={error} />}
