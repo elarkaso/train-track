@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { getExercises } from "../api/exerciseApi";
 import { assignExerciseToWorkout } from "../api/workoutExerciseApi";
+import { MUSCLE_GROUPS } from "../utils/muscleGroups";
 
 import { ErrorMessage } from "../components/messages/ErrorMessage";
 import { LoadingMessage } from "../components/messages/LoadingMessage";
@@ -12,6 +13,7 @@ function AssignExerciseToWorkoutPage() {
   const navigate = useNavigate();
 
   const [exercises, setExercises] = useState([]);
+  const [muscleGroupFilter, setMuscleGroupFilter] = useState("");
   const [selectedExerciseId, setSelectedExerciseId] = useState("");
   const [sets, setSets] = useState(1);
   const [repetitions, setRepetitions] = useState(1);
@@ -19,6 +21,10 @@ function AssignExerciseToWorkoutPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
+
+  const filteredExercises = muscleGroupFilter
+    ? exercises.filter((exercise) => exercise.primaryMuscleGroup === muscleGroupFilter)
+    : exercises;
 
   useEffect(() => {
     async function loadExercises() {
@@ -37,6 +43,20 @@ function AssignExerciseToWorkoutPage() {
 
     loadExercises();
   }, []);
+
+  useEffect(() => {
+    if (!selectedExerciseId) {
+      return;
+    }
+
+    const selectedExerciseStillVisible = filteredExercises.some(
+      (exercise) => String(exercise.id) === String(selectedExerciseId)
+    );
+
+    if (!selectedExerciseStillVisible) {
+      setSelectedExerciseId("");
+    }
+  }, [filteredExercises, selectedExerciseId]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -90,7 +110,27 @@ function AssignExerciseToWorkoutPage() {
         <h2>Assign Exercise to Workout</h2>
       </header>
 
-      <form onSubmit={handleSubmit}>
+      <div className="form-actions">
+        <form onSubmit={handleSubmit}>
+          <div className="filter-form">
+            <div>
+              <label htmlFor="muscleGroup">Filter by muscle group:</label>
+              <select
+                id="muscleGroup"
+                name="muscleGroup"
+                value={muscleGroupFilter}
+                onChange={(e) => setMuscleGroupFilter(e.target.value)}
+              >
+                <option value="">All</option>
+                {MUSCLE_GROUPS.map((group) => (
+                  <option key={group} value={group}>
+                    {group}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
         <div>
           <label htmlFor="exercise">Exercise:</label>
           <select
@@ -98,8 +138,10 @@ function AssignExerciseToWorkoutPage() {
             value={selectedExerciseId}
             onChange={(e) => setSelectedExerciseId(e.target.value)}
           >
-            <option value="">Select exercise</option>
-            {exercises.map((exercise) => (
+            <option value="">
+              {filteredExercises.length === 0 ? "No exercises available" : "Select exercise"}
+            </option>
+            {filteredExercises.map((exercise) => (
               <option key={exercise.id} value={exercise.id}>
                 {exercise.name} ({exercise.primaryMuscleGroup})
               </option>
@@ -147,6 +189,7 @@ function AssignExerciseToWorkoutPage() {
           <button className="submit" type="button" onClick={() => navigate(`/workouts/${workoutId}`)}>Cancel</button>
         </div>
       </form>
+      </div>
 
       {error && <ErrorMessage message={error} />}
     </div>

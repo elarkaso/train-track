@@ -70,37 +70,29 @@ function WorkoutDetailPage() {
   return (
     <div className="page-layout">
       <header className="page-header">
-        <h2>Workout Detail</h2>
+        <h2>{workout.name}</h2>
       </header>
-      <p>
-        <strong>Name:</strong> {workout.name}
-      </p>
-
-      <p>
-        <strong>Date:</strong> {workout.date?.slice(0, 10)}
-      </p>
-
-      <div className="page-actions">
-        <button onClick={() => navigate("/")}>Back to Overview</button>{" "}
-        <button onClick={() => navigate(`/workouts/${workout.id}/assign-exercise`)}>Assign Exercise</button>
-      </div>
-
-      <h2>Assigned Exercises</h2>
 
       {!workout.workoutExercises || workout.workoutExercises.length === 0 ? (
         <p>No exercises assigned to this workout yet.</p>
       ) : (
-        <ul>
+        <ul className="workout-exercise-list">
           {workout.workoutExercises.map((item) => (
-            <li key={item.id}>
-              <strong>{item.exercise?.name}</strong> ({item.exercise?.primaryMuscleGroup}) -{" "}
-              {item.sets} sets × {item.repetitions} reps @ {item.usedWeight} kg{" "}
-              <button onClick ={() => navigate(`/workout-exercises/${item.id}/edit`)}>Edit</button>{" "}
-              <button onClick={() => handleDeleteAssignment(item.id)}>Delete</button>
+            <li className="workout-exercise-item" key={item.id}>
+              <strong>{item.exercise?.name}</strong>
+              {item.sets} × {item.repetitions} x {item.usedWeight} kg{" "}
+              <div className="workout-actions">
+                <button onClick ={() => navigate(`/workout-exercises/${item.id}/edit`)}>Edit</button>{" "}
+                <button onClick={() => handleDeleteAssignment(item.id)}>Delete</button>
+              </div>
             </li>
           ))}
         </ul>
       )}
+
+      <div className="page-actions">
+        <button onClick={() => navigate(`/workouts/${workout.id}/assign-exercise`)}>Assign Exercise</button>
+      </div>
     </div>
   );
 }

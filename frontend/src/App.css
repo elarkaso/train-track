@@ -41,8 +41,8 @@
   
   gap: 0.75rem;
   margin-top: 1.25rem;
-
   margin-bottom: 1.5rem;
+
 }
 
 .page-header {
@@ -61,6 +61,7 @@
   margin: 1.5rem 0 0.75rem;
   color: var(--text-h);
   font-size: 1.4rem;
+  text-align: center;
 }
 
 .page-subtitle {
@@ -121,6 +122,30 @@
   background: var(--surface);
 }
 
+.workout-exercise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.workout-exercise-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  gap: 5rem;
+  align-items: center;
+  width: 100%;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+}
+
 .workout-item:hover, .exercise-item:hover {
   border-color: var(--accent);
   background: var(--gradient-bg);
@@ -143,7 +168,9 @@
   align-items: center;
   text-align: center;
   gap: 0.5rem;
-  margin-bottom: 3rem;
+
+  margin-top: 0.8rem;
+  margin-bottom: 2rem;
 }
 
 .filter-form {
@@ -197,7 +224,7 @@ select {
   border-radius: 8px;
   border: 1px solid var(--border);
   background: #16171d;
-  color: var(--text-h);
+  color: var(--text);
 }
 
 .button-link {
@@ -238,6 +265,13 @@ button {
   border: 1px solid var(--accent-border);
   background: var(--preset-filter-button);
   color: var(--accent);
+}
+
+.preset-button-active {
+  border-color: var(--accent);
+  background: var(--button-link-active);
+  color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
 }
 
 .form-buttons {

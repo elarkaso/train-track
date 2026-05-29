@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { getTrainingBalanceAnalysis } from "../api/analysisApi";
 
-import { getCurrentMonthRange, getCurrentYearRange } from "../utils/date";
+import { getCurrentWeekRange, getCurrentMonthRange, getCurrentYearRange } from "../utils/date";
 
 import { ErrorMessage } from "../components/messages/ErrorMessage";
 import { LoadingMessage } from "../components/messages/LoadingMessage";
@@ -55,6 +55,10 @@ function TrainingBalanceAnalysisPage() {
     loadAnalysis(range);
   }
 
+  function isPresetActive(range) {
+    return from === range.from && to === range.to;
+  }
+
   return (
     <div className="page-layout">
       <header className="page-header">
@@ -91,10 +95,28 @@ function TrainingBalanceAnalysisPage() {
         </form>
 
         <div className="form-presets">
-          <button type="button" className="button-muted" onClick={() => applyPresetRange(getCurrentMonthRange())}>
+          <button
+            type="button"
+            className={isPresetActive(getCurrentWeekRange()) ? "button preset-button-active" : "button"}
+            aria-pressed={isPresetActive(getCurrentWeekRange())}
+            onClick={() => applyPresetRange(getCurrentWeekRange())}
+          >
+            This Week
+          </button>
+          <button
+            type="button"
+            className={isPresetActive(getCurrentMonthRange()) ? "button preset-button-active" : "button"}
+            aria-pressed={isPresetActive(getCurrentMonthRange())}
+            onClick={() => applyPresetRange(getCurrentMonthRange())}
+          >
             This Month
           </button>
-          <button type="button" className="button-muted" onClick={() => applyPresetRange(getCurrentYearRange())}>
+          <button
+            type="button"
+            className={isPresetActive(getCurrentYearRange()) ? "button preset-button-active" : "button"}
+            aria-pressed={isPresetActive(getCurrentYearRange())}
+            onClick={() => applyPresetRange(getCurrentYearRange())}
+          >
             This Year
           </button>
         </div>

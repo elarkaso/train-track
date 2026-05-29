@@ -89,7 +89,8 @@ function EditExercisePage() {
         <h2>Edit Exercise</h2>
       </header>
 
-      <form onSubmit={handleSubmit}>
+      <div className="form-actions">
+        <form className="filter-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Exercise name:</label>
           <input
@@ -124,6 +125,7 @@ function EditExercisePage() {
           <button className="submit" type="button" onClick={() => navigate("/exercises")}>Cancel</button>
         </div>
       </form>
+      </div>
 
       {error && <ErrorMessage message={error} />}
     </div>
