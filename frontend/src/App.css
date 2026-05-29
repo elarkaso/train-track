@@ -78,6 +78,11 @@
   list-style: none;
 }
 
+.workout-name-link {
+  color: var(--accent);
+  cursor: pointer;
+}
+
 .exercise-list {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -101,6 +106,7 @@
   border-radius: 12px;
   padding: 1rem 1.5rem;
   background: var(--surface);
+
 }
 
 .exercise-item {
@@ -113,6 +119,13 @@
   border-radius: 12px;
   padding: 1rem;
   background: var(--surface);
+}
+
+.workout-item:hover, .exercise-item:hover {
+  border-color: var(--accent);
+  background: var(--gradient-bg);
+  transform: scale(1.02);
+  cursor: pointer;
 }
 
 .form-actions{
@@ -199,6 +212,19 @@ select {
   
 }
 
+.button-link-active {
+  border-color: var(--accent);
+  background: var(--button-link-active);
+  color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+button:hover,
+.button-link:hover {
+  text-decoration: none;
+  border-color: var(--accent);
+}
+
 button {
   padding: 0.65rem 0.95rem;
   border-radius: 0.8rem;
@@ -229,13 +255,6 @@ button {
 .submit {
   margin-top: 1rem;
   gap: 4rem;
-}
-
-
-button:hover,
-.button-link:hover {
-  text-decoration: none;
-  border-color: var(--accent);
 }
 
 .danger-button {

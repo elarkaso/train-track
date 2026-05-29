@@ -49,10 +49,13 @@ function CreateExercisePage() {
   return (
     <div className="page-layout">
       <header className="page-header">
-        <h2>Create Exercise</h2>
+        <p className="page-subtitle">
+          Here you can create a new exercise. Fill in the details below and click "Save Exercise" to add it to your catalog.
+        </p>
       </header>
 
-      <form onSubmit={handleSubmit}>
+      <div className="form-actions">
+        <form className="filter-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Exercise name:</label>
           <input
@@ -87,6 +90,7 @@ function CreateExercisePage() {
           <button className="submit" type="button" onClick={() => navigate("/exercises")}>Cancel</button>
         </div>
       </form>
+      </div>
 
       {error && <ErrorMessage message={error} />}
     </div>

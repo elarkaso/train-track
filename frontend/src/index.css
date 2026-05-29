@@ -2,6 +2,7 @@
   --text: #c9c9c8;
   --text-h: #fae900;
   --text-button: #1f2028;
+  --button-link-active: rgba(255, 232, 28, 0.14);
   --preset-filter-button: rgba(255, 232, 28, 0.12);
   --bg: #161615;
   --gradient-bg: linear-gradient(180deg, rgba(31, 32, 40, 0.95), rgba(31, 32, 40, 0.65));
@@ -62,6 +63,7 @@ a {
 a:hover {
   text-decoration: underline;
   color: var(--accent-hover);
+  transform: scale(1.1);
 }
 
 button,
@@ -72,10 +74,8 @@ select {
 
 button {
   cursor: pointer;
-  color: var(--text-button);
 }
 
 button:hover {
   text-decoration: none;
-  border-color: var(--accent);
 }

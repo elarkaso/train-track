@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 function PageLayout() {
   return (
@@ -8,21 +8,41 @@ function PageLayout() {
         <p>Track your workouts, analyze your progress, and achieve your fitness goals!</p>
 
         <nav className="main-nav">
-          <Link to="/workouts" className="button-link">
+          <NavLink
+            to="/workouts"
+            end
+            className={({ isActive }) => (isActive ? "button-link button-link-active" : "button-link")}
+          >
             Workouts
-          </Link>
-          <Link to="/workouts/new" className="button-link">
+          </NavLink>
+          <NavLink
+            to="/workouts/new"
+            end
+            className={({ isActive }) => (isActive ? "button-link button-link-active" : "button-link")}
+          >
             Create Workout
-          </Link>
-          <Link to="/exercises" className="button-link">
+          </NavLink>
+          <NavLink
+            to="/exercises"
+            end
+            className={({ isActive }) => (isActive ? "button-link button-link-active" : "button-link")}
+          >
             Exercise Catalog
-          </Link>
-          <Link to="/exercises/new" className="button-link">
+          </NavLink>
+          <NavLink
+            to="/exercises/new"
+            end
+            className={({ isActive }) => (isActive ? "button-link button-link-active" : "button-link")}
+          >
             Create Exercise
-          </Link>
-          <Link to="/analysis" className="button-link">
+          </NavLink>
+          <NavLink
+            to="/analysis"
+            end
+            className={({ isActive }) => (isActive ? "button-link button-link-active" : "button-link")}
+          >
             Analysis
-          </Link>
+          </NavLink>
         </nav>
       </header>
 

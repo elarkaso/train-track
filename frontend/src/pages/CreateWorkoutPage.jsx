@@ -48,9 +48,12 @@ function CreateWorkoutPage() {
   return (
       <div className="page-layout">
       <header className="page-header">
-        <h2>Create Workout</h2>
+        <p className="page-subtitle">
+          Here you can create a new workout. Fill in the details below and click "Save Workout" to add it to your list.
+        </p>
       </header>
-      <form onSubmit={handleSubmit}>
+      <div className="form-actions">
+        <form className="filter-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Workout name:</label>
           <input
@@ -79,6 +82,7 @@ function CreateWorkoutPage() {
           <button className="submit" type="button" onClick={() => navigate("/")}>Cancel</button>
         </div>
       </form>
+      </div>
 
       {error && <ErrorMessage message={error} />}
     </div>

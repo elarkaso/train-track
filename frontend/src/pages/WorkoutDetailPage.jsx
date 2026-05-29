@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { getWorkoutById } from "../api/workoutApi";
 import { deleteWorkoutExercise } from "../api/workoutExerciseApi";
@@ -9,6 +9,7 @@ import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function WorkoutDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [workout, setWorkout] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -80,8 +81,8 @@ function WorkoutDetailPage() {
       </p>
 
       <div className="page-actions">
-        <button onClick={() => window.location.href = "/"}>Back to Overview</button>{" "}
-        <button onClick={() => window.location.href = `/workouts/${workout.id}/assign-exercise`}>Assign Exercise</button>
+        <button onClick={() => navigate("/")}>Back to Overview</button>{" "}
+        <button onClick={() => navigate(`/workouts/${workout.id}/assign-exercise`)}>Assign Exercise</button>
       </div>
 
       <h2>Assigned Exercises</h2>
@@ -94,7 +95,7 @@ function WorkoutDetailPage() {
             <li key={item.id}>
               <strong>{item.exercise?.name}</strong> ({item.exercise?.primaryMuscleGroup}) -{" "}
               {item.sets} sets × {item.repetitions} reps @ {item.usedWeight} kg{" "}
-              <button onClick ={() => window.location.href = `/workout-exercises/${item.id}/edit`}>Edit</button>{" "}
+              <button onClick ={() => navigate(`/workout-exercises/${item.id}/edit`)}>Edit</button>{" "}
               <button onClick={() => handleDeleteAssignment(item.id)}>Delete</button>
             </li>
           ))}

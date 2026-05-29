@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { getExercises, deleteExercise } from "../api/exerciseApi";
 
@@ -8,6 +9,8 @@ import { ErrorMessage } from "../components/messages/ErrorMessage";
 import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function ExerciseOverviewPage() {
+  const navigate = useNavigate();
+
   const [exercises, setExercises] = useState([]);
   const [muscleGroupFilter, setMuscleGroupFilter] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -67,7 +70,9 @@ function ExerciseOverviewPage() {
   return (
     <div className="page-layout">
       <header className="page-header">
-        <h2>Exercise Catalog</h2>
+        <p className="page-subtitle">
+          Here you can view, edit, and manage all your exercises. Click on an exercise to see details or edit it.
+        </p>
       </header>
 
       <div className="form-actions">
@@ -107,7 +112,7 @@ function ExerciseOverviewPage() {
               </div>
 
               <div className="exercise-actions">
-                <button className="submit" type="button" onClick={() => window.location.href = `/exercises/${exercise.id}/edit`}>Edit</button>
+                <button className="submit" type="button" onClick={() => navigate(`/exercises/${exercise.id}/edit`)}>Edit</button>
                 <button className="submit" type="button" onClick={() => handleDeleteExercise(exercise.id)}>Delete</button>
               </div>
             </li>

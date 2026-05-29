@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { getWorkouts, deleteWorkout } from "../api/workoutApi";
 
@@ -10,6 +10,7 @@ import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function WorkoutOverviewPage() {
   const defaultDateRange = getCurrentYearRange();
+  const navigate = useNavigate();
 
   const [workouts, setWorkouts] = useState([]);
   const [from, setFrom] = useState(defaultDateRange.from);
@@ -64,7 +65,9 @@ function WorkoutOverviewPage() {
   return (
     <div className="page-layout">
       <header className="page-header">
-        <h2>Workout Overview</h2>
+        <p className="page-subtitle">
+          Here you can view, edit, and manage all your workouts. Click on a workout to see details or edit it.
+        </p>
       </header>
       <div className="form-actions">
         <form className="filter-form" onSubmit={handleFilterSubmit}>
@@ -98,19 +101,18 @@ function WorkoutOverviewPage() {
       {!isLoading && !error && workouts.length > 0 && (
         <ul className="workout-list">
           {workouts.map((workout) => (
-            <li className="workout-item" key={workout.id}>
+            <li className="workout-item" key={workout.id} onClick={() => navigate(`/workouts/${workout.id}`)}>{workout.name}
 
               <div className="workout-name">
-                <strong>{workout.name}</strong>
+                <strong className="workout-name-link"> </strong>
               </div>
               
               <div className="workout-date">
                 {formatDateToDisplay(workout.date)}
               </div>
               <div className="workout-actions">
-                <button type="button" onClick={() => window.location.href = `/workouts/${workout.id}`}>View</button>{" "}
-                <button type="button" onClick={() => window.location.href = `/workouts/${workout.id}/edit`}>Edit</button>
-                <button type="button" onClick={() => handleDeleteWorkout(workout.id)}>Delete</button>
+                <button type="button" onClick={(e) => { e.stopPropagation(); navigate(`/workouts/${workout.id}/edit`); }}>Edit</button>
+                <button type="button" onClick={(e) => { e.stopPropagation(); handleDeleteWorkout(workout.id); }}>Delete</button>
               </div>
             </li>
           ))}
