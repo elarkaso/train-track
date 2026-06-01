@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traintrack
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: traintrack.k8slab
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: traintrack-backend
+                port:
+                  number: 3000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: traintrack-frontend
+                port:
+                  number: 80

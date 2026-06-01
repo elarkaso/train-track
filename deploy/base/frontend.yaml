@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traintrack-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traintrack-frontend
+  template:
+    metadata:
+      labels:
+        app: traintrack-frontend
+    spec:
+      containers:
+        - name: traintrack-frontend
+          image: ghcr.io/elarkaso/train-track-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: traintrack-frontend
+spec:
+  selector:
+    app: traintrack-frontend
+  ports:
+    - port: 80
+      targetPort: 8080
