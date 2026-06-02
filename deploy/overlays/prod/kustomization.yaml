@@ -5,9 +5,3 @@ namespace: traintrack
 
 resources:
   - ../../base
-
-images:
-  - name: ghcr.io/elarkaso/train-track-frontend
-    newTag: latest
-  - name: ghcr.io/elarkaso/train-track-backend
-    newTag: latest
