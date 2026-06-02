@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getExercises, deleteExercise } from "../api/exerciseApi";
-
 import { MUSCLE_GROUPS } from "../utils/muscleGroups";
 
 import { ErrorMessage } from "../components/messages/ErrorMessage";
