@@ -12,6 +12,8 @@ spec:
       labels:
         app: traintrack-frontend
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: traintrack-frontend
           image: ghcr.io/elarkaso/train-track-frontend:latest
