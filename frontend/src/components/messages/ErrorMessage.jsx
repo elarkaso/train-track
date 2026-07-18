@@ -3,11 +3,7 @@ function ErrorMessage({ message }) {
     return null;
   }
 
-  return (
-    <p style={{ color: "red", fontWeight: "bold", marginTop: "1rem" }}>
-      Error: {message}
-    </p>
-  );
+  return <p className="status-message status-message-error">Error: {message}</p>;
 }
 
 export { ErrorMessage };

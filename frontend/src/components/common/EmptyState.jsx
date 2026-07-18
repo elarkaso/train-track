@@ -1,5 +1,5 @@
-function emptyState({ text = "No data found." }) {
-  return <p>{text}</p>;
+function EmptyState({ text = "No data found." }) {
+  return <p className="empty-state">{text}</p>;
 }
 
-export default emptyState;
+export default EmptyState;

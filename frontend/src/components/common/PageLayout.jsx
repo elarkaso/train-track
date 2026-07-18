@@ -2,10 +2,15 @@ import { NavLink, Outlet } from "react-router-dom";
 
 function PageLayout() {
   return (
-    <div className="page-layout">
+    <div className="app-shell">
       <header className="main-header">
-        <h1>TrainTrack</h1>
-        <p>Track your workouts, analyze your progress, and achieve your fitness goals!</p>
+        <div className="main-header-copy">
+          <p className="eyebrow">Training journal</p>
+          <h1>TrainTrack</h1>
+          <p>
+            Track workouts, tune volume, and keep your training balanced without losing sight of the details.
+          </p>
+        </div>
 
         <nav className="main-nav">
           <NavLink

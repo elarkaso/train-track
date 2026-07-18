@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { getWorkoutById, updateWorkout } from "../api/workoutApi";
 
@@ -72,44 +72,46 @@ function EditWorkoutPage() {
   }
 
   return (
-    <div className="page-layout">
+    <section className="page-layout page-layout-narrow">
       <header className="page-header">
+        <p className="eyebrow">Edit</p>
         <h2>Edit Workout</h2>
+        <p className="page-subtitle">Adjust the workout title or date without losing the existing exercise assignments.</p>
       </header>
 
       <div className="form-actions">
-        <form className="filter-form" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Workout name:</label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter workout name"
-          />
-        </div>
+        <form className="editor-form" onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label htmlFor="name">Workout name</label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter workout name"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="date">Workout date:</label>
-          <input
-            id="date"
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
-        <div className="form-buttons">
-          <button className="submit" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : "Save Changes"}
-          </button>
-          <button className="submit" type="button" onClick={() => navigate("/")}>Cancel</button>
-        </div>
-      </form>
+          <div className="form-field">
+            <label htmlFor="date">Workout date</label>
+            <input
+              id="date"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+          <div className="form-buttons">
+            <button className="submit" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Saving..." : "Save Changes"}
+            </button>
+            <button className="button-secondary" type="button" onClick={() => navigate("/")}>Cancel</button>
+          </div>
+        </form>
       </div>
 
       {error && <ErrorMessage message={error} />}
-    </div>
+    </section>
   );
 }
 

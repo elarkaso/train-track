@@ -73,62 +73,65 @@ function EditExercisePage() {
 
   if (error && !name && !primaryMuscleGroup) {
     return (
-      <div className="page-layout">
+      <section className="page-layout page-layout-narrow">
         <header className="page-header">
+          <p className="eyebrow">Edit</p>
           <h2>Edit Exercise</h2>
         </header>
         <ErrorMessage message={error} />
-        <Link to="/exercises">Back to Exercise Overview</Link>
-      </div>
+        <Link className="button-link" to="/exercises">Back to Exercise Overview</Link>
+      </section>
     );
   }
 
   return (
-    <div className="page-layout">
+    <section className="page-layout page-layout-narrow">
       <header className="page-header">
+        <p className="eyebrow">Edit</p>
         <h2>Edit Exercise</h2>
+        <p className="page-subtitle">Keep the exercise name and muscle group aligned with how you analyze training volume.</p>
       </header>
 
       <div className="form-actions">
-        <form className="filter-form" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Exercise name:</label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter exercise name"
-          />
-        </div>
+        <form className="editor-form" onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label htmlFor="name">Exercise name</label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter exercise name"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="primaryMuscleGroup">Primary muscle group:</label>
-          <select
-            id="primaryMuscleGroup"
-            value={primaryMuscleGroup}
-            onChange={(e) => setPrimaryMuscleGroup(e.target.value)}
-          >
-            <option value="">Select muscle group</option>
-            {MUSCLE_GROUPS.map((group) => (
-              <option key={group} value={group}>
-                {group}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-buttons">
-          <button className="submit" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : "Save Changes"}
-          </button>
+          <div className="form-field">
+            <label htmlFor="primaryMuscleGroup">Primary muscle group</label>
+            <select
+              id="primaryMuscleGroup"
+              value={primaryMuscleGroup}
+              onChange={(e) => setPrimaryMuscleGroup(e.target.value)}
+            >
+              <option value="">Select muscle group</option>
+              {MUSCLE_GROUPS.map((group) => (
+                <option key={group} value={group}>
+                  {group}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="form-buttons">
+            <button className="submit" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Saving..." : "Save Changes"}
+            </button>
 
-          <button className="submit" type="button" onClick={() => navigate("/exercises")}>Cancel</button>
-        </div>
-      </form>
+            <button className="button-secondary" type="button" onClick={() => navigate("/exercises")}>Cancel</button>
+          </div>
+        </form>
       </div>
 
       {error && <ErrorMessage message={error} />}
-    </div>
+    </section>
   );
 }
 

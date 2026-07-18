@@ -22,20 +22,6 @@ function getCurrentMonthRange() {
   };
 }
 
-function getCurrentWeekRange() {
-  const now = new Date();
-  const dayOfWeek = now.getDay();
-  const startOfWeek = new Date(now);
-  startOfWeek.setDate(now.getDate() - dayOfWeek);
-  const endOfWeek = new Date(now);
-  endOfWeek.setDate(now.getDate() + (6 - dayOfWeek));
-
-  return {
-    from: startOfWeek.toISOString().split("T")[0],
-    to: endOfWeek.toISOString().split("T")[0],
-  };
-}
-
 function getTodayDate() {
   return new Date().toISOString().split("T")[0];
 }
@@ -61,7 +47,6 @@ function formatDateToDisplay(dateString) {
 export {
   getCurrentYearRange,
   getCurrentMonthRange,
-  getCurrentWeekRange,
   getTodayDate,
   formatDateToDisplay,
 };

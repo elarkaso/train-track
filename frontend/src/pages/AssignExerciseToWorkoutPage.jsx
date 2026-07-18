@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { getExercises } from "../api/exerciseApi";
 import { assignExerciseToWorkout } from "../api/workoutExerciseApi";
-import { MUSCLE_GROUPS } from "../utils/muscleGroups";
 
 import { ErrorMessage } from "../components/messages/ErrorMessage";
 import { LoadingMessage } from "../components/messages/LoadingMessage";
@@ -13,7 +12,6 @@ function AssignExerciseToWorkoutPage() {
   const navigate = useNavigate();
 
   const [exercises, setExercises] = useState([]);
-  const [muscleGroupFilter, setMuscleGroupFilter] = useState("");
   const [selectedExerciseId, setSelectedExerciseId] = useState("");
   const [sets, setSets] = useState(1);
   const [repetitions, setRepetitions] = useState(1);
@@ -21,10 +19,6 @@ function AssignExerciseToWorkoutPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
-
-  const filteredExercises = muscleGroupFilter
-    ? exercises.filter((exercise) => exercise.primaryMuscleGroup === muscleGroupFilter)
-    : exercises;
 
   useEffect(() => {
     async function loadExercises() {
@@ -43,20 +37,6 @@ function AssignExerciseToWorkoutPage() {
 
     loadExercises();
   }, []);
-
-  useEffect(() => {
-    if (!selectedExerciseId) {
-      return;
-    }
-
-    const selectedExerciseStillVisible = filteredExercises.some(
-      (exercise) => String(exercise.id) === String(selectedExerciseId)
-    );
-
-    if (!selectedExerciseStillVisible) {
-      setSelectedExerciseId("");
-    }
-  }, [filteredExercises, selectedExerciseId]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -105,94 +85,75 @@ function AssignExerciseToWorkoutPage() {
   }
 
   return (
-    <div className="page-layout">
+    <section className="page-layout page-layout-narrow">
       <header className="page-header">
+        <p className="eyebrow">Assignment</p>
         <h2>Assign Exercise to Workout</h2>
+        <p className="page-subtitle">Choose the exercise and define the exact workload you want recorded for this session.</p>
       </header>
 
       <div className="form-actions">
-        <form onSubmit={handleSubmit}>
-          <div className="filter-form">
-            <div>
-              <label htmlFor="muscleGroup">Filter by muscle group:</label>
-              <select
-                id="muscleGroup"
-                name="muscleGroup"
-                value={muscleGroupFilter}
-                onChange={(e) => setMuscleGroupFilter(e.target.value)}
-              >
-                <option value="">All</option>
-                {MUSCLE_GROUPS.map((group) => (
-                  <option key={group} value={group}>
-                    {group}
-                  </option>
-                ))}
-              </select>
-            </div>
+        <form className="editor-form" onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label htmlFor="exercise">Exercise</label>
+            <select
+              id="exercise"
+              value={selectedExerciseId}
+              onChange={(e) => setSelectedExerciseId(e.target.value)}
+            >
+              <option value="">Select exercise</option>
+              {exercises.map((exercise) => (
+                <option key={exercise.id} value={exercise.id}>
+                  {exercise.name} ({exercise.primaryMuscleGroup})
+                </option>
+              ))}
+            </select>
           </div>
 
-        <div>
-          <label htmlFor="exercise">Exercise:</label>
-          <select
-            id="exercise"
-            value={selectedExerciseId}
-            onChange={(e) => setSelectedExerciseId(e.target.value)}
-          >
-            <option value="">
-              {filteredExercises.length === 0 ? "No exercises available" : "Select exercise"}
-            </option>
-            {filteredExercises.map((exercise) => (
-              <option key={exercise.id} value={exercise.id}>
-                {exercise.name} ({exercise.primaryMuscleGroup})
-              </option>
-            ))}
-          </select>
-        </div>
+          <div className="form-field">
+            <label htmlFor="sets">Sets</label>
+            <input
+              id="sets"
+              type="number"
+              min="1"
+              value={sets}
+              onChange={(e) => setSets(e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="sets">Sets:</label>
-          <input
-            id="sets"
-            type="number"
-            min="1"
-            value={sets}
-            onChange={(e) => setSets(e.target.value)}
-          />
-        </div>
+          <div className="form-field">
+            <label htmlFor="repetitions">Repetitions</label>
+            <input
+              id="repetitions"
+              type="number"
+              min="1"
+              value={repetitions}
+              onChange={(e) => setRepetitions(e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="repetitions">Repetitions:</label>
-          <input
-            id="repetitions"
-            type="number"
-            min="1"
-            value={repetitions}
-            onChange={(e) => setRepetitions(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="usedWeight">Used weight (kg):</label>
-          <input
-            id="usedWeight"
-            type="number"
-            min="0"
-            step="0.5"
-            value={usedWeight}
-            onChange={(e) => setUsedWeight(e.target.value)}
-          />
-        </div>
-        <div className="form-buttons">
-          <button className="submit" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : "Assign Exercise"}
-          </button>
-          <button className="submit" type="button" onClick={() => navigate(`/workouts/${workoutId}`)}>Cancel</button>
-        </div>
-      </form>
+          <div className="form-field">
+            <label htmlFor="usedWeight">Used weight (kg)</label>
+            <input
+              id="usedWeight"
+              type="number"
+              min="0"
+              step="0.5"
+              value={usedWeight}
+              onChange={(e) => setUsedWeight(e.target.value)}
+            />
+          </div>
+          <div className="form-buttons">
+            <button className="submit" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Saving..." : "Assign Exercise"}
+            </button>
+            <button className="button-secondary" type="button" onClick={() => navigate(`/workouts/${workoutId}`)}>Cancel</button>
+          </div>
+        </form>
       </div>
 
       {error && <ErrorMessage message={error} />}
-    </div>
+    </section>
   );
 }
 
