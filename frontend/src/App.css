@@ -72,6 +72,31 @@
   margin-top: clamp(1.35rem, 3vw, 2rem);
 }
 
+.menu-toggle {
+  display: none;
+}
+
+.menu-icon,
+.menu-icon span {
+  display: block;
+}
+
+.menu-icon {
+  width: 1.2rem;
+}
+
+.menu-icon span {
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.menu-icon span + span {
+  margin-top: 0.27rem;
+}
+
 .button-link,
 button {
   display: inline-flex;
@@ -578,11 +603,70 @@ select:focus {
 
   .main-header {
     border-radius: 1.15rem;
+    padding: 1.2rem;
+  }
+
+  .main-header h1 {
+    padding-right: 3.35rem;
+    font-size: 2rem;
+  }
+
+  .brand-mark {
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 0.65rem;
+    font-size: 0.72rem;
+  }
+
+  .main-header p {
+    margin-top: 0.7rem;
+    font-size: 0.93rem;
+  }
+
+  .menu-toggle {
+    position: absolute;
+    z-index: 2;
+    top: 1.05rem;
+    right: 1rem;
+    display: inline-grid;
+    width: 2.85rem;
+    min-height: 2.85rem;
+    padding: 0;
+    place-items: center;
+    color: var(--primary);
+    background: var(--surface);
+    border-color: var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .menu-toggle:hover:not(:disabled) {
+    color: #fff;
+    background: var(--primary);
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(1) {
+    transform: translateY(0.54rem) rotate(45deg);
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(3) {
+    transform: translateY(-0.54rem) rotate(-45deg);
   }
 
   .main-nav {
+    display: none;
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+    margin-top: 1.15rem;
+    padding-top: 1.15rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .main-nav.menu-open {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .button-link {
@@ -597,6 +681,33 @@ select:focus {
     padding-top: 1.6rem;
   }
 
+  .page-header {
+    margin-bottom: 1.2rem;
+  }
+
+  .page-header h2 {
+    font-size: clamp(1.75rem, 9vw, 2.2rem);
+  }
+
+  .form-actions,
+  .page-layout > form {
+    margin-bottom: 1.15rem;
+  }
+
+  .filter-form,
+  .form-actions > form:not(.filter-form),
+  .page-layout > form {
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+
+  .filter-form > div:not(.form-buttons):not(.form-inline-actions),
+  .form-actions > form:not(.filter-form) > div:not(.filter-form):not(.form-buttons),
+  .page-layout > form > div:not(.form-buttons) {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+
   .workout-item,
   .workout-exercise-item {
     grid-template-columns: 1fr;
@@ -606,16 +717,31 @@ select:focus {
   .workout-actions,
   .exercise-actions,
   .form-buttons,
-  .page-actions {
+  .page-actions,
+  .assignment-actions {
     justify-content: flex-start;
   }
 
-  .button-link,
-  button {
+  .form-inline-actions,
+  .form-buttons,
+  .page-actions,
+  .workout-actions,
+  .exercise-actions,
+  .assignment-actions {
     width: 100%;
   }
 
-  .filter-form {
+  .form-inline-actions button,
+  .form-buttons button,
+  .page-actions button,
+  .workout-actions button,
+  .exercise-actions button,
+  .assignment-actions button {
+    flex: 1 1 8rem;
+  }
+
+  .exercise-list,
+  .data-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -632,7 +758,10 @@ select:focus {
 
   .form-buttons,
   .form-buttons button,
-  .page-actions button {
+  .page-actions button,
+  .workout-actions button,
+  .exercise-actions button,
+  .assignment-actions button {
     width: 100%;
   }
 }
