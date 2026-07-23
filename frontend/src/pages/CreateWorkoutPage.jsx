@@ -47,12 +47,7 @@ function CreateWorkoutPage() {
   return (
       <section className="page-layout page-layout-narrow">
       <header className="page-header">
-<<<<<<< HEAD
         <h2>New Workout</h2>
-=======
-        <p className="eyebrow">Create</p>
-        <h2>Create Workout</h2>
->>>>>>> 91c6cc3ddda12b028d5c959f5aa825300ec72fc3
         <p className="page-subtitle">
           Add a workout session with a clear title and date so it is ready for assignments.
         </p>

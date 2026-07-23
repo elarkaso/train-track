@@ -66,12 +66,7 @@ function WorkoutOverviewPage() {
   return (
     <section className="page-layout">
       <header className="page-header">
-<<<<<<< HEAD
         <h2>Workouts</h2>
-=======
-        <p className="eyebrow">Workouts</p>
-        <h2>Workout Overview</h2>
->>>>>>> 91c6cc3ddda12b028d5c959f5aa825300ec72fc3
         <p className="page-subtitle">
           Review your training calendar, narrow the date range, and jump straight into each session.
         </p>
@@ -112,15 +107,8 @@ function WorkoutOverviewPage() {
         <ul className="workout-list">
           {workouts.map((workout) => (
             <li className="workout-item" key={workout.id} onClick={() => navigate(`/workouts/${workout.id}`)}>
-<<<<<<< HEAD
               <div className="workout-name">
                 <strong className="workout-name-link">{workout.name}</strong>
-=======
-              <div className="workout-summary">
-                <p className="item-kicker">Session</p>
-                <strong className="workout-name-link">{workout.name}</strong>
-                <p className="item-footnote">Open this workout to view assignments and volume.</p>
->>>>>>> 91c6cc3ddda12b028d5c959f5aa825300ec72fc3
               </div>
               
               <div className="workout-date">

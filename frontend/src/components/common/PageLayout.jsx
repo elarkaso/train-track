@@ -4,18 +4,8 @@ function PageLayout() {
   return (
     <div className="app-shell">
       <header className="main-header">
-<<<<<<< HEAD
         <h1><span className="brand-mark" aria-hidden="true">TT</span>TrainTrack</h1>
         <p>Track your workouts, analyze your progress, and achieve your fitness goals!</p>
-=======
-        <div className="main-header-copy">
-          <p className="eyebrow">Training journal</p>
-          <h1>TrainTrack</h1>
-          <p>
-            Track workouts, tune volume, and keep your training balanced without losing sight of the details.
-          </p>
-        </div>
->>>>>>> 91c6cc3ddda12b028d5c959f5aa825300ec72fc3
 
         <nav className="main-nav">
           <NavLink
