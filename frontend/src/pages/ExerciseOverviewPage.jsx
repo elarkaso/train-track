@@ -70,6 +70,7 @@ function ExerciseOverviewPage() {
   return (
     <div className="page-layout">
       <header className="page-header">
+        <h2>Exercise Catalog</h2>
         <p className="page-subtitle">
           Here you can view, edit, and manage all your exercises. Click on an exercise to see details or edit it.
         </p>
@@ -108,12 +109,13 @@ function ExerciseOverviewPage() {
             <li className="exercise-item" key={exercise.id}>
 
               <div className="exercise-name">
-                <strong>{exercise.name}</strong> ({exercise.primaryMuscleGroup})
+                <strong>{exercise.name}</strong>
+                <span className="exercise-muscle-group">{exercise.primaryMuscleGroup}</span>
               </div>
 
               <div className="exercise-actions">
                 <button className="submit" type="button" onClick={() => navigate(`/exercises/${exercise.id}/edit`)}>Edit</button>
-                <button className="submit" type="button" onClick={() => handleDeleteExercise(exercise.id)}>Delete</button>
+                <button className="submit danger-button" type="button" onClick={() => handleDeleteExercise(exercise.id)}>Delete</button>
               </div>
             </li>
           ))}

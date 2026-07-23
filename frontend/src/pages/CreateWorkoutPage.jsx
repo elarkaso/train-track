@@ -48,6 +48,7 @@ function CreateWorkoutPage() {
   return (
       <div className="page-layout">
       <header className="page-header">
+        <h2>New Workout</h2>
         <p className="page-subtitle">
           Here you can create a new workout. Fill in the details below and click "Save Workout" to add it to your list.
         </p>

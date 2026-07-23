@@ -79,11 +79,13 @@ function WorkoutDetailPage() {
         <ul className="workout-exercise-list">
           {workout.workoutExercises.map((item) => (
             <li className="workout-exercise-item" key={item.id}>
-              <strong>{item.exercise?.name}</strong>
+              <div className="workout-exercise-info">
+                <strong>{item.exercise?.name}</strong>
               {item.sets} × {item.repetitions} x {item.usedWeight} kg{" "}
+              </div>
               <div className="workout-actions">
                 <button onClick ={() => navigate(`/workout-exercises/${item.id}/edit`)}>Edit</button>{" "}
-                <button onClick={() => handleDeleteAssignment(item.id)}>Delete</button>
+                <button className="danger-button" onClick={() => handleDeleteAssignment(item.id)}>Delete</button>
               </div>
             </li>
           ))}

@@ -1,5 +1,5 @@
 function LoadingMessage({ message = "Loading..." }) {
-  return <p>{message}</p>;
+  return <p className="loading-message">{message}</p>;
 }
 
 export { LoadingMessage };

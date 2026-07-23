@@ -49,6 +49,7 @@ function CreateExercisePage() {
   return (
     <div className="page-layout">
       <header className="page-header">
+        <h2>New Exercise</h2>
         <p className="page-subtitle">
           Here you can create a new exercise. Fill in the details below and click "Save Exercise" to add it to your catalog.
         </p>

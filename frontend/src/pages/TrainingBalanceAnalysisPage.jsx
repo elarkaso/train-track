@@ -62,6 +62,7 @@ function TrainingBalanceAnalysisPage() {
   return (
     <div className="page-layout">
       <header className="page-header">
+        <h2>Training Balance</h2>
         <p className="page-subtitle">
           Keep your training  volume balanced across muscle groups to optimize progress and reduce inefficient muscle overload.
         </p>

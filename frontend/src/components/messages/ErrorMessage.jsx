@@ -4,7 +4,7 @@ function ErrorMessage({ message }) {
   }
 
   return (
-    <p style={{ color: "red", fontWeight: "bold", marginTop: "1rem" }}>
+    <p className="error-message">
       Error: {message}
     </p>
   );

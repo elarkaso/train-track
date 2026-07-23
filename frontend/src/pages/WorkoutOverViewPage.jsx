@@ -65,6 +65,7 @@ function WorkoutOverviewPage() {
   return (
     <div className="page-layout">
       <header className="page-header">
+        <h2>Workouts</h2>
         <p className="page-subtitle">
           Here you can view, edit, and manage all your workouts. Click on a workout to see details or edit it.
         </p>
@@ -101,10 +102,9 @@ function WorkoutOverviewPage() {
       {!isLoading && !error && workouts.length > 0 && (
         <ul className="workout-list">
           {workouts.map((workout) => (
-            <li className="workout-item" key={workout.id} onClick={() => navigate(`/workouts/${workout.id}`)}>{workout.name}
-
+            <li className="workout-item" key={workout.id} onClick={() => navigate(`/workouts/${workout.id}`)}>
               <div className="workout-name">
-                <strong className="workout-name-link"> </strong>
+                <strong className="workout-name-link">{workout.name}</strong>
               </div>
               
               <div className="workout-date">
@@ -112,7 +112,7 @@ function WorkoutOverviewPage() {
               </div>
               <div className="workout-actions">
                 <button type="button" onClick={(e) => { e.stopPropagation(); navigate(`/workouts/${workout.id}/edit`); }}>Edit</button>
-                <button type="button" onClick={(e) => { e.stopPropagation(); handleDeleteWorkout(workout.id); }}>Delete</button>
+                <button className="danger-button" type="button" onClick={(e) => { e.stopPropagation(); handleDeleteWorkout(workout.id); }}>Delete</button>
               </div>
             </li>
           ))}
