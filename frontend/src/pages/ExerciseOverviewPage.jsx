@@ -7,6 +7,7 @@ import { MUSCLE_GROUPS } from "../utils/muscleGroups";
 
 import { ErrorMessage } from "../components/messages/ErrorMessage";
 import { LoadingMessage } from "../components/messages/LoadingMessage";
+import EmptyState from "../components/common/EmptyState";
 
 function ExerciseOverviewPage() {
   const navigate = useNavigate();
@@ -68,60 +69,63 @@ function ExerciseOverviewPage() {
   }
 
   return (
-    <div className="page-layout">
+    <section className="page-layout">
       <header className="page-header">
+        <p className="eyebrow">Exercises</p>
         <h2>Exercise Catalog</h2>
         <p className="page-subtitle">
-          Here you can view, edit, and manage all your exercises. Click on an exercise to see details or edit it.
+          Keep your exercise library organized by muscle group and maintain the movements you actually use.
         </p>
       </header>
 
       <div className="form-actions">
         <form className="filter-form">
-        <div>
-          <label htmlFor="muscleGroup">Filter by muscle group:</label>
-          <select
-            id="muscleGroup"
-            name="muscleGroup"
-            value={muscleGroupFilter}
-            onChange={(e) => setMuscleGroupFilter(e.target.value)}
-          >
-            <option value="">All</option>
-            {MUSCLE_GROUPS.map((group) => (
-              <option key={group} value={group}>
-                {group}
-              </option>
-            ))}
-          </select>
-        </div>
-      </form>
+          <div className="form-field">
+            <label htmlFor="muscleGroup">Filter by muscle group</label>
+            <select
+              id="muscleGroup"
+              name="muscleGroup"
+              value={muscleGroupFilter}
+              onChange={(e) => setMuscleGroupFilter(e.target.value)}
+            >
+              <option value="">All groups</option>
+              {MUSCLE_GROUPS.map((group) => (
+                <option key={group} value={group}>
+                  {group}
+                </option>
+              ))}
+            </select>
+          </div>
+        </form>
       </div>
 
       {filteredExercises.length === 0 ? (
-        <p>
-          {muscleGroupFilter
-            ? `No exercises found for ${muscleGroupFilter}.`
-            : "No exercises found."}
-        </p>
+        <EmptyState
+          text={
+            muscleGroupFilter
+              ? `No exercises found for ${muscleGroupFilter}.`
+              : "No exercises found."
+          }
+        />
       ) : (
         <ul className="exercise-list">
           {filteredExercises.map((exercise) => (
             <li className="exercise-item" key={exercise.id}>
-
-              <div className="exercise-name">
-                <strong>{exercise.name}</strong>
-                <span className="exercise-muscle-group">{exercise.primaryMuscleGroup}</span>
+              <div className="exercise-summary">
+                <p className="item-kicker">Primary group</p>
+                <strong className="exercise-name">{exercise.name}</strong>
+                <p className="item-footnote">{exercise.primaryMuscleGroup}</p>
               </div>
 
               <div className="exercise-actions">
-                <button className="submit" type="button" onClick={() => navigate(`/exercises/${exercise.id}/edit`)}>Edit</button>
-                <button className="submit danger-button" type="button" onClick={() => handleDeleteExercise(exercise.id)}>Delete</button>
+                <button type="button" onClick={() => navigate(`/exercises/${exercise.id}/edit`)}>Edit</button>
+                <button className="danger-button" type="button" onClick={() => handleDeleteExercise(exercise.id)}>Delete</button>
               </div>
             </li>
           ))}
         </ul>
       )}
-    </div>
+    </section>
   );
 }
 
