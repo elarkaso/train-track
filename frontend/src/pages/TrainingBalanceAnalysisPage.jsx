@@ -59,12 +59,9 @@ function TrainingBalanceAnalysisPage() {
   return (
     <section className="page-layout">
       <header className="page-header">
-<<<<<<< HEAD
         <h2>Training Balance</h2>
-=======
         <p className="eyebrow">Insights</p>
         <h2>Training Balance Analysis</h2>
->>>>>>> 91c6cc3ddda12b028d5c959f5aa825300ec72fc3
         <p className="page-subtitle">
           Track how your weekly and monthly training volume is distributed so the plan stays balanced.
         </p>

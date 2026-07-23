@@ -104,15 +104,6 @@ function WorkoutDetailPage() {
       ) : (
         <ul className="assignment-list">
           {workout.workoutExercises.map((item) => (
-<<<<<<< HEAD
-            <li className="workout-exercise-item" key={item.id}>
-              <div className="workout-exercise-info">
-                <strong>{item.exercise?.name}</strong>
-              {item.sets} × {item.repetitions} x {item.usedWeight} kg{" "}
-              </div>
-              <div className="workout-actions">
-                <button onClick ={() => navigate(`/workout-exercises/${item.id}/edit`)}>Edit</button>{" "}
-=======
             <li className="assignment-item" key={item.id}>
               <div className="assignment-summary">
                 <p className="item-kicker">{item.exercise?.primaryMuscleGroup}</p>
@@ -123,7 +114,6 @@ function WorkoutDetailPage() {
               </div>
               <div className="assignment-actions">
                 <button onClick={() => navigate(`/workout-exercises/${item.id}/edit`)}>Edit</button>
->>>>>>> 91c6cc3ddda12b028d5c959f5aa825300ec72fc3
                 <button className="danger-button" onClick={() => handleDeleteAssignment(item.id)}>Delete</button>
               </div>
             </li>

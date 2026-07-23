@@ -48,12 +48,9 @@ function CreateExercisePage() {
   return (
     <section className="page-layout page-layout-narrow">
       <header className="page-header">
-<<<<<<< HEAD
         <h2>New Exercise</h2>
-=======
         <p className="eyebrow">Create</p>
         <h2>Create Exercise</h2>
->>>>>>> 91c6cc3ddda12b028d5c959f5aa825300ec72fc3
         <p className="page-subtitle">
           Add a movement to the catalog and tag it to the primary muscle group you want to analyze later.
         </p>
