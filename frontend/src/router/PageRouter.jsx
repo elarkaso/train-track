@@ -2,14 +2,14 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import PageLayout from "../components/common/PageLayout";
 
 // Import pages (Workout-related)
-import WorkoutOverviewPage from "../pages/WorkoutOverviewPage";
+import WorkoutOverViewPage from "../pages/WorkoutOverViewPage";
 import CreateWorkoutPage from "../pages/CreateWorkoutPage";
 import WorkoutDetailPage from "../pages/WorkoutDetailPage";
 import EditWorkoutPage from "../pages/EditWorkoutPage";
 
 // Import pages (Exercise-related)
 import CreateExercisePage from "../pages/CreateExercisePage";
-import ExerciseOverviewPage from "../pages/ExerciseOverviewPage";
+import ExerciseOverViewPage from "../pages/ExerciseOverViewPage";
 
 // Import pages (WorkoutExercise-related)
 import AssignExerciseToWorkoutPage from "../pages/AssignExerciseToWorkoutPage";
@@ -29,7 +29,7 @@ function PageRouter() {
 
         {/* workout-related routes */}
         <Route path="/" element={<Navigate to="/workouts" replace />} />
-        <Route path="/workouts" element={<WorkoutOverviewPage />} />
+        <Route path="/workouts" element={<WorkoutOverViewPage />} />
         <Route path="/workouts/new" element={<CreateWorkoutPage />} />
         <Route path="/workouts/:id" element={<WorkoutDetailPage />} />
         <Route path="/workouts/:id/edit" element={<EditWorkoutPage />} />
@@ -37,7 +37,7 @@ function PageRouter() {
         {/* exercise-related routes */}
         <Route path="/exercises/new" element={<CreateExercisePage />} />
         <Route path="/exercises/:id/edit" element={<EditExercisePage />} />
-        <Route path="/exercises" element={<ExerciseOverviewPage />} />
+        <Route path="/exercises" element={<ExerciseOverViewPage />} />
 
         {/* workout exercise-related routes */}
         <Route path="/workouts/:id/assign-exercise" element={<AssignExerciseToWorkoutPage />} />

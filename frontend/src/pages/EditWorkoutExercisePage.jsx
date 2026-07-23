@@ -84,13 +84,14 @@ function EditWorkoutExercisePage() {
 
   if (error && !workoutExercise) {
     return (
-      <div className="page-layout">
+      <section className="page-layout page-layout-narrow">
         <header className="page-header">
+          <p className="eyebrow">Edit</p>
           <h2>Edit Workout Exercise</h2>
         </header>
         <ErrorMessage message={error} />
-        <Link to="/">Back to Overview</Link>
-      </div>
+        <Link className="button-link" to="/">Back to Overview</Link>
+      </section>
     );
   }
 
@@ -99,61 +100,68 @@ function EditWorkoutExercisePage() {
   }
 
   return (
-    <div className="page-layout">
+    <section className="page-layout page-layout-narrow">
       <header className="page-header">
+        <p className="eyebrow">Edit</p>
         <h2>Edit Workout Exercise</h2>
+        <p className="page-subtitle">Refine the logged sets, reps, and load for this workout assignment.</p>
       </header>
 
-      <p>
-        <strong>Exercise:</strong> {workoutExercise.exercise?.name} (
-        {workoutExercise.exercise?.primaryMuscleGroup})
-      </p>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="sets">Sets:</label>
-          <input
-            id="sets"
-            type="number"
-            min="1"
-            value={sets}
-            onChange={(e) => setSets(e.target.value)}
-          />
+      <section className="detail-card detail-card-compact">
+        <div className="detail-item">
+          <span className="item-kicker">Exercise</span>
+          <strong>{workoutExercise.exercise?.name}</strong>
+          <p className="item-footnote">{workoutExercise.exercise?.primaryMuscleGroup}</p>
         </div>
+      </section>
 
-        <div>
-          <label htmlFor="repetitions">Repetitions:</label>
-          <input
-            id="repetitions"
-            type="number"
-            min="1"
-            value={repetitions}
-            onChange={(e) => setRepetitions(e.target.value)}
-          />
-        </div>
+      <div className="form-actions">
+        <form className="editor-form" onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label htmlFor="sets">Sets</label>
+            <input
+              id="sets"
+              type="number"
+              min="1"
+              value={sets}
+              onChange={(e) => setSets(e.target.value)}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="usedWeight">Used weight (kg):</label>
-          <input
-            id="usedWeight"
-            type="number"
-            min="0"
-            step="0.5"
-            value={usedWeight}
-            onChange={(e) => setUsedWeight(e.target.value)}
-          />
-        </div>
+          <div className="form-field">
+            <label htmlFor="repetitions">Repetitions</label>
+            <input
+              id="repetitions"
+              type="number"
+              min="1"
+              value={repetitions}
+              onChange={(e) => setRepetitions(e.target.value)}
+            />
+          </div>
 
-        <div className="form-buttons">
-          <button className="submit" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : "Save Changes"}
-          </button>
-          <button className="submit" type="button" onClick={() => navigate(`/workouts/${workoutExercise.workout.id}`)}>Cancel</button>
-        </div>
-      </form>
+          <div className="form-field">
+            <label htmlFor="usedWeight">Used weight (kg)</label>
+            <input
+              id="usedWeight"
+              type="number"
+              min="0"
+              step="0.5"
+              value={usedWeight}
+              onChange={(e) => setUsedWeight(e.target.value)}
+            />
+          </div>
+
+          <div className="form-buttons">
+            <button className="submit" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Saving..." : "Save Changes"}
+            </button>
+            <button className="button-secondary" type="button" onClick={() => navigate(`/workouts/${workoutExercise.workout.id}`)}>Cancel</button>
+          </div>
+        </form>
+      </div>
 
       {error && <ErrorMessage message={error} />}
-    </div>
+    </section>
   );
 }
 

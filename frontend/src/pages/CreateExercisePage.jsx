@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { createExercise } from "../api/exerciseApi";
 
 import { MUSCLE_GROUPS } from "../utils/muscleGroups";
 
 import { ErrorMessage } from "../components/messages/ErrorMessage";
-import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function CreateExercisePage() {
   const navigate = useNavigate();
@@ -47,54 +46,59 @@ function CreateExercisePage() {
   }
 
   return (
-    <div className="page-layout">
+    <section className="page-layout page-layout-narrow">
       <header className="page-header">
+<<<<<<< HEAD
         <h2>New Exercise</h2>
+=======
+        <p className="eyebrow">Create</p>
+        <h2>Create Exercise</h2>
+>>>>>>> 91c6cc3ddda12b028d5c959f5aa825300ec72fc3
         <p className="page-subtitle">
-          Here you can create a new exercise. Fill in the details below and click "Save Exercise" to add it to your catalog.
+          Add a movement to the catalog and tag it to the primary muscle group you want to analyze later.
         </p>
       </header>
 
       <div className="form-actions">
-        <form className="filter-form" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Exercise name:</label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter exercise name"
-          />
-        </div>
+        <form className="editor-form" onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label htmlFor="name">Exercise name</label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter exercise name"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="primaryMuscleGroup">Primary muscle group:</label>
-          <select
-            id="primaryMuscleGroup"
-            value={primaryMuscleGroup}
-            onChange={(e) => setPrimaryMuscleGroup(e.target.value)}
-          >
-            <option value="">Select muscle group</option>
-            {MUSCLE_GROUPS.map((group) => (
-              <option key={group} value={group}>
-                {group}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-buttons">
-          <button className="submit" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving..." : "Save Exercise"}
-          </button>
+          <div className="form-field">
+            <label htmlFor="primaryMuscleGroup">Primary muscle group</label>
+            <select
+              id="primaryMuscleGroup"
+              value={primaryMuscleGroup}
+              onChange={(e) => setPrimaryMuscleGroup(e.target.value)}
+            >
+              <option value="">Select muscle group</option>
+              {MUSCLE_GROUPS.map((group) => (
+                <option key={group} value={group}>
+                  {group}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="form-buttons">
+            <button className="submit" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Saving..." : "Save Exercise"}
+            </button>
 
-          <button className="submit" type="button" onClick={() => navigate("/exercises")}>Cancel</button>
-        </div>
-      </form>
+            <button className="button-secondary" type="button" onClick={() => navigate("/exercises")}>Cancel</button>
+          </div>
+        </form>
       </div>
 
       {error && <ErrorMessage message={error} />}
-    </div>
+    </section>
   );
 }
 

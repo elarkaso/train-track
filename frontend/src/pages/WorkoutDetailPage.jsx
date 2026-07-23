@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { getWorkoutById } from "../api/workoutApi";
 import { deleteWorkoutExercise } from "../api/workoutExerciseApi";
 
 import { ErrorMessage } from "../components/messages/ErrorMessage";
 import { LoadingMessage } from "../components/messages/LoadingMessage";
+import EmptyState from "../components/common/EmptyState";
 
 function WorkoutDetailPage() {
   const { id } = useParams();
@@ -68,16 +69,42 @@ function WorkoutDetailPage() {
   }
 
   return (
-    <div className="page-layout">
+    <section className="page-layout">
       <header className="page-header">
-        <h2>{workout.name}</h2>
+        <p className="eyebrow">Workout</p>
+        <h2>Workout Detail</h2>
+        <p className="page-subtitle">Inspect the session setup, assigned exercises, and edit the workout in context.</p>
       </header>
 
+      <section className="detail-card">
+        <div className="detail-grid">
+          <div className="detail-item">
+            <span className="item-kicker">Workout name</span>
+            <strong>{workout.name}</strong>
+          </div>
+          <div className="detail-item">
+            <span className="item-kicker">Workout date</span>
+            <strong>{workout.date?.slice(0, 10)}</strong>
+          </div>
+        </div>
+      </section>
+
+      <div className="page-actions">
+        <button className="button-secondary" onClick={() => navigate("/")}>Back to Overview</button>
+        <button onClick={() => navigate(`/workouts/${workout.id}/assign-exercise`)}>Assign Exercise</button>
+      </div>
+
+      <div className="section-heading">
+        <h3 className="content-header">Assigned Exercises</h3>
+        <p className="section-copy">Each entry records the planned volume and working weight for the session.</p>
+      </div>
+
       {!workout.workoutExercises || workout.workoutExercises.length === 0 ? (
-        <p>No exercises assigned to this workout yet.</p>
+        <EmptyState text="No exercises assigned to this workout yet." />
       ) : (
-        <ul className="workout-exercise-list">
+        <ul className="assignment-list">
           {workout.workoutExercises.map((item) => (
+<<<<<<< HEAD
             <li className="workout-exercise-item" key={item.id}>
               <div className="workout-exercise-info">
                 <strong>{item.exercise?.name}</strong>
@@ -85,17 +112,25 @@ function WorkoutDetailPage() {
               </div>
               <div className="workout-actions">
                 <button onClick ={() => navigate(`/workout-exercises/${item.id}/edit`)}>Edit</button>{" "}
+=======
+            <li className="assignment-item" key={item.id}>
+              <div className="assignment-summary">
+                <p className="item-kicker">{item.exercise?.primaryMuscleGroup}</p>
+                <strong>{item.exercise?.name}</strong>
+                <p className="assignment-metrics">
+                  {item.sets} sets x {item.repetitions} reps at {item.usedWeight} kg
+                </p>
+              </div>
+              <div className="assignment-actions">
+                <button onClick={() => navigate(`/workout-exercises/${item.id}/edit`)}>Edit</button>
+>>>>>>> 91c6cc3ddda12b028d5c959f5aa825300ec72fc3
                 <button className="danger-button" onClick={() => handleDeleteAssignment(item.id)}>Delete</button>
               </div>
             </li>
           ))}
         </ul>
       )}
-
-      <div className="page-actions">
-        <button onClick={() => navigate(`/workouts/${workout.id}/assign-exercise`)}>Assign Exercise</button>
-      </div>
-    </div>
+    </section>
   );
 }
 

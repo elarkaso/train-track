@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { createWorkout } from "../api/workoutApi";
 import { getTodayDate } from "../utils/date";
 
 import { ErrorMessage } from "../components/messages/ErrorMessage";
-import { LoadingMessage } from "../components/messages/LoadingMessage";
 
 function CreateWorkoutPage() {
   const navigate = useNavigate();
@@ -46,47 +45,52 @@ function CreateWorkoutPage() {
   }
 
   return (
-      <div className="page-layout">
+      <section className="page-layout page-layout-narrow">
       <header className="page-header">
+<<<<<<< HEAD
         <h2>New Workout</h2>
+=======
+        <p className="eyebrow">Create</p>
+        <h2>Create Workout</h2>
+>>>>>>> 91c6cc3ddda12b028d5c959f5aa825300ec72fc3
         <p className="page-subtitle">
-          Here you can create a new workout. Fill in the details below and click "Save Workout" to add it to your list.
+          Add a workout session with a clear title and date so it is ready for assignments.
         </p>
       </header>
       <div className="form-actions">
-        <form className="filter-form" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Workout name:</label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter workout name"
-          />
-        </div>
+        <form className="editor-form" onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label htmlFor="name">Workout name</label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter workout name"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="date">Workout date:</label>
-          <input
-            id="date"
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
-        <div className="form-buttons">
-          <button className="submit" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : "Save Workout"}
-          </button>
+          <div className="form-field">
+            <label htmlFor="date">Workout date</label>
+            <input
+              id="date"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+          <div className="form-buttons">
+            <button className="submit" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Saving..." : "Save Workout"}
+            </button>
 
-          <button className="submit" type="button" onClick={() => navigate("/")}>Cancel</button>
-        </div>
-      </form>
+            <button className="button-secondary" type="button" onClick={() => navigate("/")}>Cancel</button>
+          </div>
+        </form>
       </div>
 
       {error && <ErrorMessage message={error} />}
-    </div>
+    </section>
   );
 }
 

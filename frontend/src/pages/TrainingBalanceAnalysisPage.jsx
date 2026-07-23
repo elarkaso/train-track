@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 
 import { getTrainingBalanceAnalysis } from "../api/analysisApi";
 
-import { getCurrentWeekRange, getCurrentMonthRange, getCurrentYearRange } from "../utils/date";
+import { getCurrentMonthRange, getCurrentYearRange } from "../utils/date";
 
 import { ErrorMessage } from "../components/messages/ErrorMessage";
 import { LoadingMessage } from "../components/messages/LoadingMessage";
+import EmptyState from "../components/common/EmptyState";
 
 function TrainingBalanceAnalysisPage() {
   const defaultRange = getCurrentMonthRange();
@@ -55,23 +56,24 @@ function TrainingBalanceAnalysisPage() {
     loadAnalysis(range);
   }
 
-  function isPresetActive(range) {
-    return from === range.from && to === range.to;
-  }
-
   return (
-    <div className="page-layout">
+    <section className="page-layout">
       <header className="page-header">
+<<<<<<< HEAD
         <h2>Training Balance</h2>
+=======
+        <p className="eyebrow">Insights</p>
+        <h2>Training Balance Analysis</h2>
+>>>>>>> 91c6cc3ddda12b028d5c959f5aa825300ec72fc3
         <p className="page-subtitle">
-          Keep your training  volume balanced across muscle groups to optimize progress and reduce inefficient muscle overload.
+          Track how your weekly and monthly training volume is distributed so the plan stays balanced.
         </p>
       </header>
 
       <div className="form-actions">
         <form className="filter-form" onSubmit={handleSubmit}>
           <div className="form-field">
-            <label htmlFor="from">From:</label>
+            <label htmlFor="from">From</label>
             <input
               id="from"
               type="date"
@@ -81,7 +83,7 @@ function TrainingBalanceAnalysisPage() {
           </div>
 
           <div className="form-field">
-            <label htmlFor="to">To:</label>
+            <label htmlFor="to">To</label>
             <input
               id="to"
               type="date"
@@ -96,28 +98,10 @@ function TrainingBalanceAnalysisPage() {
         </form>
 
         <div className="form-presets">
-          <button
-            type="button"
-            className={isPresetActive(getCurrentWeekRange()) ? "button preset-button-active" : "button"}
-            aria-pressed={isPresetActive(getCurrentWeekRange())}
-            onClick={() => applyPresetRange(getCurrentWeekRange())}
-          >
-            This Week
-          </button>
-          <button
-            type="button"
-            className={isPresetActive(getCurrentMonthRange()) ? "button preset-button-active" : "button"}
-            aria-pressed={isPresetActive(getCurrentMonthRange())}
-            onClick={() => applyPresetRange(getCurrentMonthRange())}
-          >
+          <button type="button" className="button-muted" onClick={() => applyPresetRange(getCurrentMonthRange())}>
             This Month
           </button>
-          <button
-            type="button"
-            className={isPresetActive(getCurrentYearRange()) ? "button preset-button-active" : "button"}
-            aria-pressed={isPresetActive(getCurrentYearRange())}
-            onClick={() => applyPresetRange(getCurrentYearRange())}
-          >
+          <button type="button" className="button-muted" onClick={() => applyPresetRange(getCurrentYearRange())}>
             This Year
           </button>
         </div>
@@ -191,11 +175,11 @@ function TrainingBalanceAnalysisPage() {
               })}
             </ul>
           ) : (
-            <p>No summary data available.</p>
+            <EmptyState text="No summary data available." />
           )}
         </section>
       )}
-    </div>
+    </section>
   );
 }
 
